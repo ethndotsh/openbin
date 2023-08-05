@@ -1,0 +1,5 @@
+{
+  "tasks": {
+    "types": "supabase gen types typescript --project-id=okrxduhzkryvltkiqqzw > supabase/types.ts"
+  }
+}
