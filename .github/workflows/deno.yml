@@ -43,6 +43,6 @@ jobs:
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: dist
+          name: build
           path: |
-            dist
+            build
