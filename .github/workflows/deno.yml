@@ -39,3 +39,10 @@ jobs:
 
       - name: Build macOS ARM
         run: deno task build:mac:arm64
+        
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: |
+            dist
