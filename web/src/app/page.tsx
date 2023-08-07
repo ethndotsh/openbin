@@ -12,7 +12,7 @@ export default function Home() {
           "radial-gradient(114.41% 98.48% at 96.73% 4.89%, rgba(0, 133, 255, 0.20) 0%, rgba(255, 245, 0, 0.00) 100%), #FFF",
       }}
     >
-      <main className="grid md:grid-cols-2 h-screen w-screen lg:max-w-5xl md:max-w-4xl sm:max-w-2xl xl:max-w-6xl sm:mx-auto px-5 ">
+      <main className="grid md:grid-cols-2 xl:gap-6 h-screen w-screen lg:max-w-5xl md:max-w-4xl sm:max-w-2xl xl:max-w-6xl sm:mx-auto px-5 ">
         <div className="absolute h-screen w-screen top-0 left-0 flex items-center justify-center z-0">
           <svg
             xmlns="http://www.w3.org/2000/svg"
