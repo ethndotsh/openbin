@@ -1,9 +1,10 @@
 {
   "name": "openbin",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Pastebin clone that takes notes & code sharing to the next level.",
   "scripts": {
-    "install": "node install.js"
+    "install": "node install.js",
+    "uninstall": "node uninstall.js"
   },
   "repository": {
     "type": "git",
