@@ -1,0 +1,6 @@
+{
+  "tasks": {
+    "types": "supabase gen types typescript --project-id=okrxduhzkryvltkiqqzw > supabase/types.ts",
+    "dev": "deno run --allow-net --allow-run --allow-env --allow-read --allow-write ./cli/index.ts"
+  }
+}
