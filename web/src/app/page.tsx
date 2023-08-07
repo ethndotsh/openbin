@@ -73,12 +73,12 @@ export default function Home() {
                 Supabase LW8 Hackathon Submission
               </span>
             </div>
-            <h1 className="lg:text-4xl text-3xl font-bold">
+            <h1 className="lg:text-4xl text-3xl font-bold mt-1">
               <Balancer>
                 Code and notes sharing built for command line warriors.
               </Balancer>
             </h1>
-            <p className="text-neutral-700 mt-3 text-[1.1rem]">
+            <p className="text-neutral-700 mt-4 text-[1.1rem]">
               Openbin brings the ease of use of Pastebin and Gists to your
               terminal, allowing you to draft, publish and share text files in
               seconds.
