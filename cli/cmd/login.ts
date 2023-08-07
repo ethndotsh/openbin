@@ -4,6 +4,7 @@ import {
 } from "https://deno.land/x/cliffy@v1.0.0-rc.2/command/mod.ts";
 import supabaseClient from "../util/supabase.ts";
 import { Provider } from "https://esm.sh/v130/@supabase/supabase-js@2.31.0/dist/module/index.js";
+import storage from "../util/storage.ts";
 
 const providers = ["github", "google"];
 
@@ -13,7 +14,7 @@ const LoginCommand = new Command()
   .alias("auth")
   .description(
     `Login to OpenBin ${
-      localStorage.getItem("user") ? "(logged in)" : "(not logged in)"
+      await storage.get("user") ? "(logged in)" : "(not logged in)"
     }`,
   )
   .usage("login")
@@ -79,8 +80,8 @@ const LoginCommand = new Command()
             }
 
             // Store the user in the local storage, because Deno is cool
-            localStorage.setItem("user", JSON.stringify(user));
-            localStorage.setItem("session", JSON.stringify(session));
+            storage.set("user", JSON.stringify(user));
+            storage.set("session", JSON.stringify(session));
 
             setTimeout(() => {
               ac.abort();

@@ -5,6 +5,7 @@ import {
   User,
 } from "https://esm.sh/v130/@supabase/gotrue-js@2.46.1/dist/module/index.js";
 import { getPasteUrl } from "../util/helpers.ts";
+import storage from "../util/storage.ts";
 
 const PastesCommand = new Command()
   .name("pastes")
@@ -12,16 +13,13 @@ const PastesCommand = new Command()
   .alias("ls")
   .alias("list")
   .action(async () => {
-    const sessionData = localStorage.getItem("session");
-    const userData = localStorage.getItem("user");
+    const session = await storage.get("session");
+    const user = await storage.get("user");
 
-    if (!sessionData || !userData) {
+    if (!session || !user) {
       console.error("You are not logged in.");
       Deno.exit(1);
     }
-
-    const user: User = JSON.parse(userData);
-    const session: Session = JSON.parse(sessionData);
 
     const { data, error: sessionError } = await supabaseClient.auth.setSession({
       access_token: session.access_token,

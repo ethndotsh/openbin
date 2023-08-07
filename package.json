@@ -1,0 +1,27 @@
+{
+  "name": "openbin",
+  "version": "1.0.4",
+  "description": "Pastebin clone that takes notes & code sharing to the next level.",
+  "scripts": {
+    "install": "node install.js",
+    "uninstall": "node uninstall.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ethndotsh/openbin.git"
+  },
+  "bin": {
+    "openbin": "./bin/openbin"
+  },
+  "keywords": [
+    "pastebin",
+    "openbin",
+    "supabase"
+  ],
+  "author": "The Openbin Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ethndotsh/openbin/issues"
+  },
+  "homepage": "https://github.com/ethndotsh/openbin#readme"
+}

@@ -1,18 +1,19 @@
 import {
   createClient,
   SupportedStorage,
-} from "https://esm.sh/@supabase/supabase-js@2.31.0";
+} from "https://esm.sh/v130/@supabase/supabase-js@2.32.0?alias=@supabase/gotrue-js:@jackmerrill/gotrue-js";
 import { Database } from "../../supabase/types.ts";
+import storage from "./storage.ts";
 
 const customStorageAdapter: SupportedStorage = {
-  getItem: (key) => {
-    return localStorage.getItem(key);
+  getItem: async (key) => {
+    return await storage.get(key);
   },
   setItem: (key, value) => {
-    localStorage.setItem(key, value);
+    storage.set(key, value);
   },
   removeItem: (key) => {
-    localStorage.removeItem(key);
+    storage.delete(key);
   },
 };
 

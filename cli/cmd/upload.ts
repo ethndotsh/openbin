@@ -10,6 +10,7 @@ import {
 } from "https://esm.sh/v130/@supabase/gotrue-js@2.46.1/dist/module/index.js";
 import * as DateTime from "https://deno.land/std@0.197.0/datetime/mod.ts";
 import { getPasteUrl } from "../util/helpers.ts";
+import storage from "../util/storage.ts";
 
 const UploadCommand = await new Command()
   .name("upload")
@@ -124,14 +125,10 @@ async function UploadFile(path: string, options: {
   const id = crypto.randomUUID();
   const fileName = `openbin-${id}`;
 
-  const sessionData = localStorage.getItem("session");
+  const session: Session = await storage.get("session");
   let userId = null;
 
-  let session: Session;
-
-  if (sessionData) {
-    session = JSON.parse(sessionData);
-
+  if (session) {
     const { data, error: sessionError } = await supabaseClient.auth.setSession({
       access_token: session.access_token,
       refresh_token: session.refresh_token,
