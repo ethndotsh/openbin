@@ -1,0 +1,31 @@
+name: Build Deno App
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: 1.x
+
+      - name: Build Windows
+        run: deno task build:windows
+
+      - name: Build Linux
+        run: deno task build:linux
+
+      - name: Build macOS
+        run: deno task build:mac
+
+      - name: Build macOS ARM
+        run: deno task build:mac:arm
