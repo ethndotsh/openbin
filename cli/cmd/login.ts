@@ -12,11 +12,11 @@ const LoginCommand = new Command()
   .name("login")
   .alias("signin")
   .alias("auth")
-  // .description(
-  //   `Login to OpenBin ${
-  //     await storage.get("user") ? "(logged in)" : "(not logged in)"
-  //   }`,
-  // )
+  .description(
+    `Login to OpenBin ${
+      await storage.get("user") ? "(logged in)" : "(not logged in)"
+    }`,
+  )
   .usage("login")
   .type("provider", new EnumType(providers))
   .option(
