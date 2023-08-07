@@ -38,4 +38,4 @@ jobs:
         run: deno task build:mac
 
       - name: Build macOS ARM
-        run: deno task build:mac:arm
+        run: deno task build:mac:arm64
