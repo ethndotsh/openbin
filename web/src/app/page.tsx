@@ -7,13 +7,14 @@ import { Terminal } from "@/components/terminal";
 export default function Home() {
   return (
     <div
+      className="md:overscroll-y-none md:overflow-y-hidden md:h-screen w-screen relative"
       style={{
         background:
           "radial-gradient(114.41% 98.48% at 96.73% 4.89%, rgba(0, 133, 255, 0.20) 0%, rgba(255, 245, 0, 0.00) 100%), #FFF",
       }}
     >
-      <main className="grid md:grid-cols-2 xl:gap-6 h-screen w-screen lg:max-w-5xl md:max-w-4xl sm:max-w-2xl xl:max-w-6xl sm:mx-auto px-5 ">
-        <div className="absolute h-screen w-screen top-0 left-0 flex items-center justify-center z-0">
+      <main className="grid md:grid-cols-2 md:gap-6 h-full w-full lg:max-w-5xl md:max-w-4xl sm:max-w-2xl xl:max-w-6xl sm:mx-auto px-5 ">
+        <div className="absolute h-full w-full top-0 left-0 flex items-center justify-center z-0">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-full"
@@ -63,7 +64,7 @@ export default function Home() {
           </svg>
         </div>
 
-        <section className="flex items-center z-10 py-56">
+        <section className="flex items-center z-10 md:py-56 pt-36 pb-12">
           <div>
             <Logo />
 
@@ -104,7 +105,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <aside className="flex items-center z-10">
+        <aside className="flex items-center z-10 mb-12 md:mb-0">
           <div className="w-full shadow-lg border rounded-md">
             <div className="h-9 bg-neutral-50 rounded-t-md relative">
               <div className="absolute left-0 h-full top-0 flex flex-row gap-1 items-center pl-3">
@@ -119,7 +120,17 @@ export default function Home() {
             <Terminal />
           </div>
         </aside>
+        <div className="flex md:hidden w-full items-center justify-center mb-8">
+          <p className="text-sm text-neutral-600 font-medium">
+            Made with 💚 by Ethan, Jack, Alexander and Mathis
+          </p>
+        </div>
       </main>
+      <div className="absolute bottom-10 left-0 w-full hidden md:flex justify-center items-center h-8">
+        <p className="text-sm text-neutral-600 font-medium">
+          Made with 💚 by Ethan, Jack, Alexander and Mathis
+        </p>
+      </div>
     </div>
   );
 }
