@@ -1,6 +1,6 @@
 {
   "name": "openbin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Pastebin clone that takes notes & code sharing to the next level.",
   "scripts": {
     "postinstall": "npm run install",
