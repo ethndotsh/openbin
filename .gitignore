@@ -1,4 +1,4 @@
-build
+prebuild
 openbin.sqlite
 fast_storage.sqlite
 cli/npm

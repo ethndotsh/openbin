@@ -2,10 +2,11 @@
   "tasks": {
     "types": "supabase gen types typescript --project-id=okrxduhzkryvltkiqqzw > supabase/types.ts",
     "dev": "deno run --allow-net --allow-run --allow-env --allow-read --allow-write ./cli/index.ts",
-    "build:windows": "deno compile --unstable --allow-net --allow-run --allow-env --allow-read --allow-write --target x86_64-pc-windows-msvc -o build/windows/openbin.exe ./cli/index.ts",
-    "build:linux": "deno compile --unstable --allow-net --allow-run --allow-env --allow-read --allow-write --target x86_64-unknown-linux-gnu -o build/linux/openbin ./cli/index.ts",
-    "build:mac": "deno compile --unstable --allow-net --allow-run --allow-env --allow-read --allow-write --target x86_64-apple-darwin -o build/macos/openbin ./cli/index.ts",
-    "build:mac:arm64": "deno compile --unstable --allow-net --allow-run --allow-env --allow-read --allow-write --target aarch64-apple-darwin -o build/macos_arm/openbin ./cli/index.ts"
+    "build:windows": "deno compile --unstable --allow-net --allow-run --allow-env --allow-read --allow-write --target x86_64-pc-windows-msvc -o prebuild/windows/openbin.exe ./cli/index.ts",
+    "build:linux": "deno compile --unstable --allow-net --allow-run --allow-env --allow-read --allow-write --target x86_64-unknown-linux-gnu -o prebuild/linux/openbin ./cli/index.ts",
+    "build:mac": "deno compile --unstable --allow-net --allow-run --allow-env --allow-read --allow-write --target x86_64-apple-darwin -o prebuild/macos/openbin ./cli/index.ts",
+    "build:mac:arm64": "deno compile --unstable --allow-net --allow-run --allow-env --allow-read --allow-write --target aarch64-apple-darwin -o prebuild/macos_arm/openbin ./cli/index.ts",
+    "build:all": "deno task build:windows && deno task build:linux && deno task build:mac && deno task build:mac:arm64"
   },
   "scopes": {
     "https://esm.sh/v130/": {
