@@ -1,6 +1,8 @@
 "use client";
 
+import { v4 as uuidv4 } from 'uuid';
 import React, { useEffect, useState } from "react";
+
 
 interface Line {
   text: string;
@@ -34,7 +36,7 @@ const lines = [
     cmd: false,
   },
   {
-    text: `File uploaded successfully, accessible at https://opb.in/${crypto.randomUUID()}`,
+    text: `File uploaded successfully, accessible at https://opb.in/${uuidv4()}`,
     cmd: false,
   },
 ] as Line[];
