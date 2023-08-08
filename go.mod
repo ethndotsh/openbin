@@ -2,6 +2,8 @@ module github.com/ethndotsh/openbin
 
 go 1.19
 
+replace github.com/ethndotsh/openbin/cli => ./cli
+
 require (
 	github.com/atotto/clipboard v0.1.4 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
