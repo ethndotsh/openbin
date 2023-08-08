@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
-    <div className="absolute ml-3 mr-3 bottom-0 text-center md:bottom-4 text-white md:ml-auto md:mr-auto left-0 right-0">
-      <p className="text-sm text-neutral-600 font-medium">
+    <div className="absolute bottom-2 left-0 right-0 ml-3 mr-3 text-center text-white md:bottom-4 md:ml-auto md:mr-auto">
+      <p className="text-sm font-medium text-neutral-600">
         Made with 💚 by Ethan, Jack,{" "}
         <a href="https://github.com/LavenderFoxxo">Alexander</a> and Mathis
       </p>
