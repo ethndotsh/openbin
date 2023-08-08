@@ -37,31 +37,21 @@ var DeleteCommand = cli.Command{
 			return err
 		}
 
-		fmt.Printf("%+v\n", paste)
-
 		if len(paste) == 0 {
 			cli.Exit("Could not find the paste.", 1)
 			return err
 		}
 
-		var delRes interface{}
-
-		err = supabase.DB.From("pastes").Delete().Eq("id", pasteId).Execute(&delRes)
+		err = supabase.DB.From("pastes").Delete().Eq("id", pasteId).Execute(nil)
 
 		if err != nil {
 			cli.Exit("Could not delete the paste.", 1)
 			return err
 		}
 
-		fmt.Printf("%+v\n", delRes)
-
 		sbAuth := db.NewAuth()
 
-		// ok this is just not working
-
-		res := sbAuth.Storage.From("pastes").Remove([]string{paste[0].File})
-
-		fmt.Printf("%+v\n", res)
+		sbAuth.Storage.From("pastes").Remove([]string{paste[0].File})
 
 		fmt.Println("Deleted the paste! 🗑️")
 

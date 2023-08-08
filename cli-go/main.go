@@ -27,7 +27,7 @@ func main() {
 			&cmd.LogoutCommand,
 			&cmd.UploadCommand,
 			&cmd.PastesCommand,
-			// &cmd.DeleteCommand, doesnt work idk why, "body must be object" my ass
+			&cmd.DeleteCommand,
 		},
 	}
 

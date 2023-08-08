@@ -16,8 +16,10 @@ const customLayout = "2006-01-02T15:04:05.999999"
 // Implement the UnmarshalJSON method for CustomTime
 func (ct *CustomTime) UnmarshalJSON(data []byte) error {
 	// Remove the surrounding quotes from the JSON string
+	if string(data) == "null" {
+		return nil
+	}
 	trimmedData := data[1 : len(data)-1]
-	fmt.Println(string(trimmedData))
 	parsedTime, err := time.Parse(customLayout, string(trimmedData))
 	if err != nil {
 		return err
@@ -28,7 +30,7 @@ func (ct *CustomTime) UnmarshalJSON(data []byte) error {
 
 type Paste struct {
 	ID          string     `json:"id"`
-	CreatedAt   CustomTime `json:"created_at"`
+	CreatedAt   CustomTime `json:"created_at,omitempty"`
 	Author      string     `json:"author"`
 	File        string     `json:"file"`
 	Private     bool       `json:"private"`

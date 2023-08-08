@@ -10,7 +10,7 @@
       "request": "launch",
       "mode": "auto",
       "program": "cli-go/main.go",
-      "args": ["upload", "-E", "code"]
+      "args": ["delete", "36468d53-525b-46d5-b9d3-973e5da362f7"]
     }
   ]
 }
