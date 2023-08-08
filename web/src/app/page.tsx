@@ -4,6 +4,7 @@ import { SupabaseLogo } from "@/components/supabase-logo";
 import { Button } from "@/components/ui/button";
 import { Balancer } from "react-wrap-balancer";
 import { Terminal } from "@/components/terminal";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -86,12 +87,12 @@ export default function Home() {
               seconds.
             </p>
             <div className="flex flex-row gap-3 items-center mt-4">
-            <a href="/editor">
+            <Link href="/editor">
               <Button className="bg-blue-500 hover:bg-blue-600 hover:scale-105 transition-all">
                 Open web editor
               </Button>
-            </a>
-            <a href="https://github.com/ethndotsh/openbin#documentation" target="_blank">
+            </Link>
+            <Link href="https://github.com/ethndotsh/openbin#documentation" target="_blank">
               <Button
                 variant="ghost"
                 className="flex items-center hover:scale-105 transition-all"
@@ -106,7 +107,7 @@ export default function Home() {
                 </svg>
                 Documentation
               </Button>
-            </a>
+            </Link>
             </div>
           </div>
         </section>
