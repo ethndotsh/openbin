@@ -1,12 +1,12 @@
 import { Logo } from "@/components/logo";
 import { Footer } from "@/components/footer";
 import { SupabaseLogo } from "@/components/svg/supabase-logo";
-import { Circles } from "@/components/svg/circles";
 import { Button } from "@/components/ui/button";
 import { Balancer } from "react-wrap-balancer";
 import { Terminal } from "@/components/terminal";
 import Link from "next/link";
 import bg from "@/assets/bg.svg";
+import grid from "@/assets/grid.svg";
 import Image from "next/image";
 
 export default function Home() {
@@ -22,7 +22,12 @@ export default function Home() {
           />
         </div>
         <div className="absolute left-0 top-0 z-0 flex h-full w-full items-center justify-center">
-          <Circles />
+          <Image
+            src={grid}
+            className="h-full w-full object-cover object-center"
+            priority
+            alt="background"
+          />
         </div>
 
         <section className="z-10 flex items-center pb-12 pt-36 md:py-56">
