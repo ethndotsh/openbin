@@ -1,8 +1,7 @@
 "use client";
 
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import React, { useEffect, useState } from "react";
-
 
 interface Line {
   text: string;
