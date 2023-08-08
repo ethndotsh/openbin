@@ -67,11 +67,11 @@ const Terminal = () => {
 
     if (currentLine < lines.length) {
       const line = lines[currentLine];
-      if (line.cmd) {
+      if (line && line.cmd) {
         setCommandLine(true);
         setDisplayText((prev) => prev + "kiwi ~ $ ");
         typeLine(line);
-      } else {
+      } else if (line) {
         setDisplayText((prev) => prev + line.text + "\n");
         if (line.delay) {
           new Promise((resolve) => setTimeout(resolve, line.delay)).then(() => {
@@ -88,7 +88,7 @@ const Terminal = () => {
   }, [currentLine, lines]);
 
   return (
-    <div className="h-64 w-full bg-neutral-800 rounded-b-md text-white p-2 text-sm whitespace-pre-wrap wrap">
+    <div className="wrap h-64 w-full whitespace-pre-wrap rounded-b-md bg-neutral-800 p-2 text-sm text-white">
       <pre className="whitespace-pre-wrap">
         {displayText}{" "}
         {commandLine && (
