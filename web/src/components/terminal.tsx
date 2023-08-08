@@ -88,7 +88,7 @@ const Terminal = () => {
   }, [currentLine, lines]);
 
   return (
-    <div className="wrap h-64 w-full whitespace-pre-wrap rounded-b-md bg-neutral-800 p-2 text-sm text-white">
+    <div className="wrap h-64 w-full whitespace-pre-wrap rounded-b-md bg-[#262626] p-2 text-sm text-white">
       <pre className="whitespace-pre-wrap">
         {displayText}{" "}
         {commandLine && (
