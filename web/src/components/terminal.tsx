@@ -90,7 +90,7 @@ const Terminal = () => {
   return (
     <div className="wrap h-64 w-full whitespace-pre-wrap rounded-b-md bg-[#262626] p-2 text-sm text-white">
       <pre className="whitespace-pre-wrap">
-        {displayText}{" "}
+        {displayText}
         {commandLine && (
           <span
             style={{ animation: "1s blink step-end infinite" }}
