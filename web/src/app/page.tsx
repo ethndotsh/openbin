@@ -15,6 +15,7 @@ export default function Home() {
         <div className="absolute left-0 top-0 z-0 flex h-full w-full items-center justify-center">
           <Image
             src={bg}
+            priority
             className="h-full w-full object-cover object-center"
             alt="background"
           />
@@ -89,9 +90,9 @@ export default function Home() {
               terminal, allowing you to draft, publish and share text files in
               seconds.
             </p>
-            <div className="mt-4 flex flex-row items-center gap-3">
+            <div className="mt-4 w-full items-center gap-3 md:flex md:flex-row">
               <Link href="/editor">
-                <Button className="bg-blue-500 transition-all hover:scale-105 hover:bg-blue-600">
+                <Button className="w-full bg-blue-500 transition-all hover:bg-blue-600 md:w-auto">
                   Open web editor
                 </Button>
               </Link>
@@ -101,7 +102,7 @@ export default function Home() {
               >
                 <Button
                   variant="ghost"
-                  className="flex items-center transition-all hover:scale-105"
+                  className="mt-2 flex w-full items-center border bg-white transition-all md:mt-0 md:w-auto md:border-none md:bg-transparent"
                 >
                   <svg
                     role="img"
@@ -126,7 +127,7 @@ export default function Home() {
                 <div className="h-3.5 w-3.5 rounded-full bg-green-500" />
               </div>
               <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center">
-                <p className="text-sm font-medium">kiwi@copple — 80 x 36</p>
+                <p className="text-sm font-medium">kiwi@copple — zsh</p>
               </div>
             </div>
             <Terminal />
