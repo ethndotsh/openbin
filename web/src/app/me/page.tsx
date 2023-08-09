@@ -4,6 +4,7 @@ import { Session } from "@supabase/supabase-js";
 import { Calendar, Hash, Info, PersonStandingIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const Me = ({ session }: { session: Session | null }) => {
   return (
@@ -18,7 +19,7 @@ const Me = ({ session }: { session: Session | null }) => {
           />
           <div className="absolute left-0 top-0 h-full w-full select-none rounded-xl bg-black/30" />
           <div className="absolute left-1/2 top-1/2 -translate-x-[50%] -translate-y-[50%] space-y-1">
-            <img
+            <Image
               className="mx-auto h-auto w-32 rounded-full"
               src="/assets/pfp-placeholder.png"
               alt="avatar"
@@ -89,7 +90,7 @@ const Me = ({ session }: { session: Session | null }) => {
                 </p>
               </div>
               <div className="rounded-xl border-2 p-2 text-center">
-                <p className="text-md font-semibold">I'm out of names</p>
+                <p className="text-md font-semibold">Random shit</p>
               </div>
             </div>
           </div>
