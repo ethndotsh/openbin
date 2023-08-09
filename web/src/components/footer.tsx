@@ -11,7 +11,7 @@ const Footer = () => {
           <span className="font-bold">
             Jack
           </span>
-        </a>{" "}
+        </a>
         ,{" "}
         <a href="https://github.com/LavenderFoxxo" target="blank">
           <span className="font-bold">Alexander</span>
