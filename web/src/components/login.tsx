@@ -25,7 +25,7 @@ export function LoginComponent({
       provider: "github",
       options: {
         redirectTo: redirectTo
-          ? `${location.origin}/auth/callback/${redirectTo}`
+          ? `${location.origin}/auth/callback/${encodeURIComponent(redirectTo)}`
           : `${location.origin}/auth/callback`,
       },
     });
@@ -37,7 +37,7 @@ export function LoginComponent({
       provider: "google",
       options: {
         redirectTo: redirectTo
-          ? `${location.origin}/auth/callback/${redirectTo}`
+          ? `${location.origin}/auth/callback/${encodeURIComponent(redirectTo)}`
           : `${location.origin}/auth/callback`,
       },
     });
@@ -51,7 +51,9 @@ export function LoginComponent({
         email,
         options: {
           emailRedirectTo: redirectTo
-            ? `${location.origin}/auth/callback/${redirectTo}`
+            ? `${location.origin}/auth/callback/${encodeURIComponent(
+                redirectTo,
+              )}`
             : `${location.origin}/auth/callback`,
         },
       })
