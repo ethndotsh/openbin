@@ -33,11 +33,11 @@ type Paste struct {
 	CreatedAt   CustomTime `json:"created_at,omitempty"`
 	Author      string     `json:"author"`
 	File        string     `json:"file"`
-	Private     bool       `json:"private"`
+	Draft       bool       `json:"draft"`
 	ExpiresAt   CustomTime `json:"expires_at,omitempty"`
 	Title       string     `json:"title"`
 	Description string     `json:"description"`
-	Syntax      string     `json:"syntax"`
+	Language    string     `json:"language"`
 }
 
 var PastesCommand = cli.Command{
@@ -68,8 +68,8 @@ var PastesCommand = cli.Command{
 		for _, paste := range pastes {
 			visibility := "Public"
 
-			if paste.Private {
-				visibility = "Private"
+			if paste.Draft {
+				visibility = "Draft"
 			}
 
 			title := paste.Title
@@ -78,7 +78,7 @@ var PastesCommand = cli.Command{
 				title = "Untitled Paste"
 			}
 
-			fmt.Printf("\n- %s: %s [%s]\n", title, fmt.Sprintf("https://openbin.vercel.app/paste/%s", paste.ID), visibility)
+			fmt.Printf("\n- %s: %s [%s]\n", title, fmt.Sprintf("https://openbin.dev/paste/%s", paste.ID), visibility)
 		}
 
 		return nil

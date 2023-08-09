@@ -53,8 +53,8 @@ export const publish = zact(
       author: userData.user.id,
       title: input.title,
       description: input.description,
-      syntax: input.language,
-      private: input.draft,
+      language: input.language,
+      draft: input.draft,
       expires_at: input.expiresAt ? input.expiresAt.toDateString() : null,
       file: `pastes/openbin-${id}.txt`,
     })
