@@ -8,7 +8,7 @@ const Me = () => {
     <>
       <div className="l mx-auto mt-8 max-w-5xl p-2">
         <div className="relative">
-          <img
+          <Image
             className="h-[244px] w-full rounded-xl object-cover"
             src="/assets/profile-bg.png"
             alt="banner"
