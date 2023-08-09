@@ -57,6 +57,8 @@ export function MonacoEditor({ session }: { session: Session | null }) {
           padding: {
             top: 16,
           },
+          cursorSmoothCaretAnimation: "on",
+          cursorBlinking: "smooth",
           fontSize: 14,
           formatOnType: true,
           formatOnPaste: true,
