@@ -29,17 +29,11 @@ type UploadOptions struct {
 }
 
 var UploadCommand = cli.Command{
-	Name:    "upload",
-	Aliases: []string{"u"},
-	Usage:   "Upload a file to OpenBin.",
+	Name:      "upload",
+	Aliases:   []string{"u"},
+	Usage:     "Upload a file to OpenBin.",
+	ArgsUsage: "[FILE]",
 	Flags: []cli.Flag{
-		&cli.StringFlag{
-			Name:      "file",
-			Aliases:   []string{"f"},
-			Usage:     "The file to upload.",
-			Required:  false,
-			TakesFile: true,
-		},
 		&cli.StringFlag{
 			Name:     "editor",
 			Aliases:  []string{"E"},
@@ -97,7 +91,7 @@ var UploadCommand = cli.Command{
 	},
 	Action: func(cCtx *cli.Context) error {
 		args := UploadOptions{
-			File:        cCtx.String("file"),
+			File:        cCtx.Args().First(),
 			Editor:      cCtx.String("editor"),
 			Private:     cCtx.Bool("private"),
 			Expire:      cCtx.String("expire"),
