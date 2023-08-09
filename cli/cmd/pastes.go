@@ -51,6 +51,10 @@ var PastesCommand = cli.Command{
 			cli.Exit("Could not get the user. Try signing in with `openbin login`.", 1)
 		}
 
+		if user == nil {
+			cli.Exit("Could not get the user. Try signing in with `openbin login`.", 1)
+		}
+
 		supabase.DB.AddHeader("Authorization", fmt.Sprintf("Bearer %s", settings.AccessToken))
 
 		var pastes []Paste
