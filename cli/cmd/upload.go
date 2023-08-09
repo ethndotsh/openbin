@@ -5,10 +5,12 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
+	"strings"
 	"time"
 
 	"github.com/atotto/clipboard"
 	uuid "github.com/doamatto/nobs-uuid"
+	"github.com/ethndotsh/openbin/cli/config"
 	db "github.com/ethndotsh/openbin/cli/supabase"
 	"github.com/hairyhenderson/go-which"
 	"github.com/pkg/browser"
@@ -40,7 +42,7 @@ var UploadCommand = cli.Command{
 			Usage:    "Set the editor to use to edit the paste. Must be the command executable (i.e. code, vim, nano, etc.)",
 			Required: false,
 		},
-		&cli.StringFlag{
+		&cli.BoolFlag{
 			Name:     "private",
 			Aliases:  []string{"p"},
 			Usage:    "Set the paste to private.",
@@ -55,13 +57,13 @@ var UploadCommand = cli.Command{
 		&cli.StringFlag{
 			Name:     "title",
 			Aliases:  []string{"t"},
-			Usage:    "Set the paste title.",
+			Usage:    "Set the paste title. Use quotes if it has spaces.",
 			Required: false,
 		},
 		&cli.StringFlag{
 			Name:     "description",
 			Aliases:  []string{"d"},
-			Usage:    "Set the paste description.",
+			Usage:    "Set the paste description. Use quotes if it has spaces.",
 			Required: false,
 		},
 		&cli.StringFlag{
@@ -70,22 +72,22 @@ var UploadCommand = cli.Command{
 			Usage:    "Set the paste syntax.",
 			Required: false,
 		},
-		&cli.StringFlag{
+		&cli.BoolFlag{
 			Name:     "copy",
 			Aliases:  []string{"c"},
 			Usage:    "Copy the paste URL to the clipboard.",
 			Required: false,
 		},
-		&cli.StringFlag{
+		&cli.BoolFlag{
 			Name:     "open",
 			Aliases:  []string{"o"},
 			Usage:    "Open the paste URL in the browser.",
 			Required: false,
 		},
-		&cli.StringFlag{
+		&cli.BoolFlag{
 			Name:     "quiet",
 			Aliases:  []string{"q"},
-			Usage:    "Don't print anything to the console.",
+			Usage:    "Don't print anything to the console. Errors will still be printed.",
 			Required: false,
 		},
 	},
@@ -101,6 +103,23 @@ var UploadCommand = cli.Command{
 			Copy:        cCtx.Bool("copy"),
 			Open:        cCtx.Bool("open"),
 			Quiet:       cCtx.Bool("quiet"),
+		}
+
+		if args.Syntax == "" {
+			// Try to get the syntax from the file extension
+			if args.File != "" {
+				if config.IsFileTypeAllowed(args.File) {
+					filetype := config.GetFileTypeByFilePath(args.File)
+					args.Syntax = filetype.Value
+				} else {
+					return cli.Exit(fmt.Sprintf("The file type you specified is not allowed.\nYou specified: %s\nAllowed types: %s", config.GetFileExtension(args.File), strings.Join(config.GetAllowedTypes(), ", ")), 1)
+				}
+			}
+		} else {
+			// Check if the syntax is allowed
+			if !config.IsFileTypeAllowedByValue(args.Syntax) {
+				return cli.Exit(fmt.Sprintf("The file type you specified is not allowed.\nYou specified: %s\nAllowed types: %s", config.GetFileExtension(args.Syntax), strings.Join(config.GetAllowedTypes(), ", ")), 1)
+			}
 		}
 
 		if args.Editor != "" {
@@ -126,7 +145,9 @@ var UploadCommand = cli.Command{
 				path = args.File
 			}
 
-			fmt.Println("Waiting for you to finish editing...")
+			if !args.Quiet {
+				fmt.Println("Waiting for you to finish editing...")
+			}
 
 			if args.Editor == "code" {
 				err := exec.Command(editorPath, "-r", "--wait", path).Run()
@@ -150,7 +171,9 @@ var UploadCommand = cli.Command{
 				os.Remove(path)
 			}
 
-			fmt.Println("Uploaded the file! 🎉")
+			if !args.Quiet {
+				fmt.Println("Uploaded the file! 🎉")
+			}
 			return nil
 		}
 
@@ -160,7 +183,9 @@ var UploadCommand = cli.Command{
 
 		if args.File != "" {
 			UploadFile(args.File, args)
-			fmt.Println("Uploaded the file! 🎉")
+			if !args.Quiet {
+				fmt.Println("Uploaded the file! 🎉")
+			}
 		}
 
 		return nil
@@ -221,7 +246,9 @@ func UploadFile(path string, opts UploadOptions) {
 		cli.Exit("Could not upload the file.", 1)
 	}
 
-	fmt.Printf("https://openbin.vercel.app/paste/%s\n", id)
+	if !opts.Quiet {
+		fmt.Printf("https://openbin.vercel.app/paste/%s\n", id)
+	}
 
 	if opts.Copy {
 		// copy the URL to the clipboard
