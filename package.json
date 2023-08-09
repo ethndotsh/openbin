@@ -1,17 +1,14 @@
 {
   "name": "openbin",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Pastebin clone that takes notes & code sharing to the next level.",
   "scripts": {
-    "install": "node install.js",
-    "uninstall": "node uninstall.js"
+    "install": "go install github.com/ethndotsh/openbin@latest",
+    "uninstall": "rm -rf $GOPATH/bin/openbin"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ethndotsh/openbin.git"
-  },
-  "bin": {
-    "openbin": "./bin/openbin"
   },
   "keywords": [
     "pastebin",
