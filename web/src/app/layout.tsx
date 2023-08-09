@@ -1,17 +1,12 @@
 import "./globals.css";
-import { Metadata as NextMetadata } from "next";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
-interface Metadata extends NextMetadata {
-  ogImage?: string;
-}
-
 export const metadata: Metadata = {
   title: "Openbin",
-  description: "Openbin is a free and open source pastebin alternative.",
-  ogImage: "/assets/image.png",  
+  description: "Openbin is a free and open source pastebin alternative.",  
 };
 
 export default function RootLayout({
