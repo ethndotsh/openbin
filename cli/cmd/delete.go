@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	db "github.com/ethndotsh/openbin/supabase"
+	db "github.com/ethndotsh/openbin/cli/supabase"
 	"github.com/urfave/cli/v2"
 )
 

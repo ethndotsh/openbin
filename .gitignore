@@ -1,5 +1,2 @@
 .DS_Store
-prebuild
-openbin.sqlite
-fast_storage.sqlite
-cli/npm
+build/

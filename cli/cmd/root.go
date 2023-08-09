@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/ethndotsh/openbin/config"
-	db "github.com/ethndotsh/openbin/supabase"
+	"github.com/ethndotsh/openbin/cli/config"
+	db "github.com/ethndotsh/openbin/cli/supabase"
 )
 
 var ctx = context.Background()

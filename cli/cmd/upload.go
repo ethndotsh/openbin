@@ -9,7 +9,7 @@ import (
 
 	"github.com/atotto/clipboard"
 	uuid "github.com/doamatto/nobs-uuid"
-	db "github.com/ethndotsh/openbin/supabase"
+	db "github.com/ethndotsh/openbin/cli/supabase"
 	"github.com/hairyhenderson/go-which"
 	"github.com/pkg/browser"
 	"github.com/urfave/cli/v2"

@@ -1,7 +1,7 @@
 package db
 
 import (
-	"github.com/ethndotsh/openbin/config"
+	"github.com/ethndotsh/openbin/cli/config"
 	"github.com/nedpals/supabase-go"
 )
 

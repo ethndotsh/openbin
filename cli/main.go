@@ -1,15 +1,15 @@
-package main
+package cli
 
 import (
 	"fmt"
 	"log"
 	"os"
 
-	"github.com/ethndotsh/openbin/cmd"
+	"github.com/ethndotsh/openbin/cli/cmd"
 	"github.com/urfave/cli/v2"
 )
 
-func main() {
+func Run() {
 	app := &cli.App{
 		Name:                 "openbin",
 		HelpName:             "openbin",
