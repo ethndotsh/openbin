@@ -252,11 +252,21 @@ func UploadFile(path string, opts UploadOptions) {
 
 	if opts.Copy {
 		// copy the URL to the clipboard
-		clipboard.WriteAll(fmt.Sprintf("https://openbin.vercel.app/paste/%s", id))
+		err = clipboard.WriteAll(fmt.Sprintf("https://openbin.vercel.app/paste/%s", id))
+
+		if err != nil {
+			fmt.Println(err)
+			cli.Exit("Could not copy the URL to the clipboard.", 1)
+		}
 	}
 
 	if opts.Open {
 		// open the URL in the browser
-		browser.OpenURL(fmt.Sprintf("https://openbin.vercel.app/paste/%s", id))
+		err = browser.OpenURL(fmt.Sprintf("https://openbin.vercel.app/paste/%s", id))
+
+		if err != nil {
+			fmt.Println(err)
+			cli.Exit("Could not open the URL in the browser.", 1)
+		}
 	}
 }

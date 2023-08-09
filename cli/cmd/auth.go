@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	sb "github.com/nedpals/supabase-go"
+	sb "github.com/jackmerrill/supabase-go"
 	"github.com/urfave/cli/v2"
 )
 
@@ -31,7 +31,17 @@ var LoginCommand = cli.Command{
 	Action: func(cCtx *cli.Context) error {
 		codeVerifier := ""
 		if cCtx.String("email") != "" {
-			supabase.Auth.SendMagicLink(ctx, cCtx.String("email"))
+			d, err := supabase.Auth.SignInWithOtp(ctx, sb.OtpSignInOptions{
+				Email:      cCtx.String("email"),
+				RedirectTo: "http://localhost:8089/auth-callback",
+				FlowType:   sb.PKCE,
+			})
+
+			if err != nil {
+				return err
+			}
+
+			codeVerifier = d.CodeVerifier
 
 			fmt.Println("Check your email! 📧")
 		} else {
@@ -68,7 +78,8 @@ var LoginCommand = cli.Command{
 		http.HandleFunc("/auth-callback", func(w http.ResponseWriter, r *http.Request) {
 			// get the code
 			code := r.URL.Query().Get("code")
-
+			fmt.Printf("Code: %s\n", code)
+			fmt.Printf("Code verifier: %s\n", codeVerifier)
 			// get the token
 			token, err := supabase.Auth.ExchangeCode(ctx, sb.ExchangeCodeOpts{
 				AuthCode:     code,
