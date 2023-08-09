@@ -16,7 +16,9 @@ export async function GET(
   }
 
   if (redirect) {
-    return NextResponse.redirect(new URL(redirect, req.url));
+    return NextResponse.redirect(
+      new URL(decodeURIComponent(redirect), req.url),
+    );
   }
 
   return NextResponse.redirect(new URL("/me", req.url));
