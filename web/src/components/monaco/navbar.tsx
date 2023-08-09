@@ -6,6 +6,7 @@ import { Logo } from "../logo";
 import { Button } from "@/components/ui/button";
 import { ChevronsUpDown, Check } from "lucide-react";
 import { cn } from "@/utils/cn";
+import { LoginComponent } from "../login";
 
 import {
   Dialog,
@@ -35,12 +36,19 @@ export function Navbar({
   session,
   selectedLanguage,
   setLanguage,
+  value,
+  publishOpen,
+  setPublishOpen,
 }: {
   session: Session | null;
   selectedLanguage: string;
+  value: string | undefined;
   setLanguage: (language: string) => void;
+  publishOpen: boolean;
+  setPublishOpen: (open: boolean) => void;
 }) {
   const [languageSelectOpen, setLanguageSelectOpen] = useState(false);
+
   return (
     <div className="grid grid-cols-2 px-4 py-2">
       <div className="flex flex-row items-center gap-4">
@@ -94,7 +102,7 @@ export function Navbar({
         </Popover>
       </div>
       <div className="flex flex-row items-center justify-end gap-4">
-        <Dialog>
+        <Dialog open={publishOpen} onOpenChange={setPublishOpen}>
           <DialogTrigger asChild>
             <Button
               size="sm"
@@ -108,16 +116,26 @@ export function Navbar({
               <DialogHeader>
                 <DialogTitle>Publish</DialogTitle>
                 <DialogDescription>
-                  Publish your code to the web.
+                  Publish your paste to the world.
                 </DialogDescription>
               </DialogHeader>
             ) : (
-              <DialogHeader>
-                <DialogTitle>Sign in</DialogTitle>
-                <DialogDescription>
-                  Sign in to publish your code to the web.
-                </DialogDescription>
-              </DialogHeader>
+              <>
+                <DialogHeader>
+                  <DialogTitle>Sign in</DialogTitle>
+                  <DialogDescription>
+                    Sign in to publish your paste.
+                  </DialogDescription>
+                </DialogHeader>
+                <LoginComponent
+                  redirectTo="/editor?publish=true"
+                  beforeLogin={() => {
+                    if (localStorage) {
+                      localStorage.setItem("editor-data", value ?? "");
+                    }
+                  }}
+                />
+              </>
             )}
           </DialogContent>
         </Dialog>
