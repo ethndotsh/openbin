@@ -1,5 +1,5 @@
 import { getSession } from "@/utils/supabase";
-import { MonacoEditor } from "@/components/monaco";
+import { MonacoEditor } from "@/components/editor";
 
 export default async function Page() {
   const session = await getSession();

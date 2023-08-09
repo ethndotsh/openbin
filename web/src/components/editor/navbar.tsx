@@ -7,6 +7,11 @@ import { Button } from "@/components/ui/button";
 import { ChevronsUpDown, Check } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { LoginComponent } from "../login";
+import { publish } from "./publish";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+
+import { PublishForm } from "./publish-form";
 
 import {
   Dialog,
@@ -31,6 +36,18 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Session } from "@supabase/supabase-js";
+import { Input } from "../ui/input";
+
+const publishSchema = z.object({
+  title: z.string().trim().max(30),
+  description: z.string().max(200),
+  language: z.enum([
+    languages[0]?.value as string,
+    ...languages.slice(1).map((language) => language.value),
+  ]),
+  draft: z.boolean().default(false),
+  expiresAt: z.date().nullable().default(null),
+});
 
 export function Navbar({
   session,
@@ -113,12 +130,15 @@ export function Navbar({
           </DialogTrigger>
           <DialogContent>
             {session?.user ? (
-              <DialogHeader>
-                <DialogTitle>Publish</DialogTitle>
-                <DialogDescription>
-                  Publish your paste to the world.
-                </DialogDescription>
-              </DialogHeader>
+              <>
+                <DialogHeader>
+                  <DialogTitle>Publish</DialogTitle>
+                  <DialogDescription>
+                    Publish your paste to the world.
+                  </DialogDescription>
+                </DialogHeader>
+                <PublishForm selectedLanguage={selectedLanguage} pasteValue={value} />
+              </>
             ) : (
               <>
                 <DialogHeader>
