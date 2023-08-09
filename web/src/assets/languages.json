@@ -1,0 +1,193 @@
+[
+  {
+    "name": "Plain Text",
+    "value": "plaintext",
+    "filetype": "txt"
+  },
+  {
+    "name": "JavaScript",
+    "value": "javascript",
+    "filetype": ["js", "jsx", "mjs", "cjs"]
+  },
+  {
+    "name": "TypeScript",
+    "value": "typescript",
+    "filetype": ["ts", "mts", "cts", "tsx"]
+  },
+  {
+    "name": "Python",
+    "value": "python",
+    "filetype": "py"
+  },
+  {
+    "name": "JSON",
+    "value": "json",
+    "filetype": "json"
+  },
+  {
+    "name": "HTML",
+    "value": "html",
+    "filetype": "html"
+  },
+  {
+    "name": "CSS",
+    "value": "css",
+    "filetype": "css"
+  },
+  {
+    "name": "Markdown",
+    "value": "markdown",
+    "filetype": "md"
+  },
+  {
+    "name": "Lua",
+    "value": "lua",
+    "filetype": "lua"
+  },
+  {
+    "name": "Go",
+    "value": "go",
+    "filetype": "go"
+  },
+  {
+    "name": "Rust",
+    "value": "rust",
+    "filetype": "rs"
+  },
+  {
+    "name": "XML",
+    "value": "xml",
+    "filetype": "xml"
+  },
+  {
+    "name": "YAML",
+    "value": "yaml",
+    "filetype": ["yaml", "yml"]
+  },
+  {
+    "name": "MDX",
+    "value": "mdx",
+    "filetype": "mdx"
+  },
+  {
+    "name": "SCSS",
+    "value": "scss",
+    "filetype": "scss"
+  },
+  {
+    "name": "Less",
+    "value": "less",
+    "filetype": "less"
+  },
+  {
+    "name": "Elixir",
+    "value": "elixir",
+    "filetype": ["ex", "exs"]
+  },
+  {
+    "name": "C++",
+    "value": "cpp",
+    "filetype": "cpp"
+  },
+  {
+    "name": "C#",
+    "value": "csharp",
+    "filetype": "cs"
+  },
+  {
+    "name": "Java",
+    "value": "java",
+    "filetype": "java"
+  },
+  {
+    "name": "Kotlin",
+    "value": "kotlin",
+    "filetype": "kt"
+  },
+  {
+    "name": "Dart",
+    "value": "dart",
+    "filetype": "dart"
+  },
+  {
+    "name": "Scala",
+    "value": "scala",
+    "filetype": "scala"
+  },
+  {
+    "name": "Handlebars",
+    "value": "handlebars",
+    "filetype": ["hbs", "handlebars"]
+  },
+  {
+    "name": "Pug",
+    "value": "pug",
+    "filetype": "pug"
+  },
+
+  {
+    "name": "Ruby",
+    "value": "ruby",
+    "filetype": "rb"
+  },
+  {
+    "name": "PHP",
+    "value": "php",
+    "filetype": "php"
+  },
+  {
+    "name": "Swift",
+    "value": "swift",
+    "filetype": "swift"
+  },
+  {
+    "name": "Solidity",
+    "value": "solidity",
+    "filetype": "sol"
+  },
+  {
+    "name": "SQL",
+    "value": "sql",
+    "filetype": "sql"
+  },
+  {
+    "name": "Dockerfile",
+    "value": "dockerfile",
+    "filetype": "dockerfile"
+  },
+  {
+    "name": "Shell",
+    "value": "shell",
+    "filetype": "sh"
+  },
+  {
+    "name": "PowerShell",
+    "value": "powershell",
+    "filetype": "ps1"
+  },
+  {
+    "name": "R",
+    "value": "r",
+    "filetype": "r"
+  },
+  {
+    "name": "Perl",
+    "value": "perl",
+    "filetype": "pl"
+  },
+  {
+    "name": "GraphQL",
+    "value": "graphql",
+    "filetype": ["graphql", "gql"]
+  },
+  {
+    "name": "Clojure",
+    "value": "clojure",
+    "filetype": "clj"
+  },
+  {
+    "name": "Objective-C",
+    "value": "objective-c",
+    "filetype": "m"
+  }
+]
