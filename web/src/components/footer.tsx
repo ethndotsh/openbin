@@ -1,9 +1,25 @@
 const Footer = () => {
   return (
-    <div className="absolute bottom-2 left-0 right-0 ml-3 mr-3 text-center text-white md:bottom-4 md:mx-auto">
-      <p className="text-center text-sm font-medium text-neutral-600">
-        Made with 💚 by Ethan, Jack,{" "}
-        <a href="https://github.com/LavenderFoxxo">Alexander</a> and Mathis
+    <div className="absolute ml-3 mr-3 bottom-0 text-center md:bottom-4 z-50 text-white md:ml-auto md:mr-auto left-0 right-0">
+      <p className="text-sm text-neutral-600 font-medium">
+        Made with 💚 by{" "}
+        <a href="https://github.com/ethndotsh" target="blank">
+          <span className="font-bold">Ethan</span>
+        </a>
+        ,{" "}
+        <a href="https://github.com/jackmerrill" target="blank">
+          <span className="font-bold">
+            Jack
+          </span>
+        </a>{" "}
+        ,{" "}
+        <a href="https://github.com/LavenderFoxxo" target="blank">
+          <span className="font-bold">Alexander</span>
+        </a>{" "}
+        and{" "}
+        <a href="https://github.com/mathislajs" target="blank">
+          <span className="font-bold">Mathis</span>
+        </a>
       </p>
     </div>
   );
