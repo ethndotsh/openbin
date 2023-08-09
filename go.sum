@@ -12,6 +12,8 @@ github.com/google/go-querystring v1.1.0 h1:AnCroh3fv4ZBgVIf1Iwtovgjaw/GiKJo8M8yD
 github.com/google/go-querystring v1.1.0/go.mod h1:Kcdr2DB4koayq7X8pmAG4sNG59So17icRSOU623lUBU=
 github.com/hairyhenderson/go-which v0.2.0 h1:vxoCKdgYc6+MTBzkJYhWegksHjjxuXPNiqo5G2oBM+4=
 github.com/hairyhenderson/go-which v0.2.0/go.mod h1:U1BQQRCjxYHfOkXDyCgst7OZVknbqI7KuGKhGnmyIik=
+github.com/jackmerrill/supabase-go v0.4.1 h1:jbsbeFqnMOMiYvFd5tL7XSJvzxXqhRbBQ4FR6NEux00=
+github.com/jackmerrill/supabase-go v0.4.1/go.mod h1:vSyl/8/hCBcqmwv8t9bow9sDWR3CVnCnVPEUnKL2Q08=
 github.com/kirsle/configdir v0.0.0-20170128060238-e45d2f54772f h1:dKccXx7xA56UNqOcFIbuqFjAWPVtP688j5QMgmo6OHU=
 github.com/kirsle/configdir v0.0.0-20170128060238-e45d2f54772f/go.mod h1:4rEELDSfUAlBSyUjPG0JnaNGjf13JySHFeRdD/3dLP0=
 github.com/kr/fs v0.1.0/go.mod h1:FFnZGqtBN9Gxj7eW1uZ42v5BccTP0vu6NEaFoC2HwRg=

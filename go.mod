@@ -22,5 +22,3 @@ require (
 	golang.org/x/sys v0.0.0-20210616045830-e2b7044e8c71 // indirect
 	golang.org/x/text v0.3.0 // indirect
 )
-
-replace github.com/jackmerrill/supabase-go => ../supabase-go
