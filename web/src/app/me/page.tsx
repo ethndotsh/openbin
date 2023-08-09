@@ -1,12 +1,9 @@
-"use client"
-
-import { Session } from "@supabase/supabase-js";
 import { Calendar, Hash, Info, PersonStandingIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
-const Me = ({ session }: { session: Session | null }) => {
+const Me = () => {
   return (
     <>
       <div className="l mx-auto mt-8 max-w-5xl p-2">
@@ -42,13 +39,13 @@ const Me = ({ session }: { session: Session | null }) => {
                 <div className="mb-1 flex flex-row items-center gap-2">
                   <Calendar className="hidden h-5 w-5 md:block" />
                   <h4 className="text-md font-medium">
-                    Join Date: {session?.user.created_at}
+                    Join Date:
                   </h4>
                 </div>
                 <div className="mb-1 flex flex-row items-center gap-2">
                   <Hash className="hidden h-5 w-5 md:block" />
                   <h4 className="text-md font-medium">
-                    Uploads: {session?.user.created_at}
+                    Uploads:
                   </h4>
                 </div>
               </div>
