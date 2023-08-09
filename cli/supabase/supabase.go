@@ -2,7 +2,7 @@ package db
 
 import (
 	"github.com/ethndotsh/openbin/cli/config"
-	"github.com/nedpals/supabase-go"
+	"github.com/jackmerrill/supabase-go"
 )
 
 const SUPABASE_URL = "https://okrxduhzkryvltkiqqzw.supabase.co"
