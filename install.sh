@@ -18,11 +18,11 @@ else
     ext=""
     case $(uname -sm) in
     "Darwin x86_64")
-        target="macos"
+        target="darwin"
         arch="amd64"
         ;;
     "Darwin arm64")
-        target="macos"
+        target="darwin"
         arch="arm64"
         ;;
     "Linux x86_64")
@@ -47,12 +47,6 @@ bin_dir="${HOME}/.openbin/bin"
 if [ ! -d "$bin_dir" ]; then
     mkdir -p "$bin_dir"
 fi
-
-echo "Target: $target"
-echo "Arch: $arch"
-echo "Bin: $bin_dir"
-echo "URI: $openbin_uri"
-echo "Target binary: $bin_dir/openbin${ext}"
 
 echo "Downloading binary..."
 
