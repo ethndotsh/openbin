@@ -30,6 +30,7 @@ if ($args[0] -ne "--no-alias") {
     Write-Host "⚠️  The alias '$Alias' is already in your PowerShell profile. We won't change it."
     } else {
     # if the alias doesn't exist, add it
+    New-Item -Path $PROFILE.CurrentUserAllHosts -ItemType File -Force
     Add-Content -Path $PROFILE.CurrentUserAllHosts -Value "Set-Alias -Name $Alias -Value $DownloadPath"
     Write-Host "Alias '$Alias' created!"
   }
