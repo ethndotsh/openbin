@@ -62,7 +62,6 @@ var UploadCommand = cli.Command{
 		},
 		&cli.StringFlag{
 			Name:     "description",
-			Aliases:  []string{"d"},
 			Usage:    "Set the paste description. Use quotes if it has spaces.",
 			Required: false,
 		},
