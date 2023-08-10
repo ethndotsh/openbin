@@ -11,8 +11,21 @@ import { redirect } from "next/navigation";
 
 export const publish = zact(
   z.object({
-    title: z.string().trim().min(2).max(30).optional(),
-    description: z.string().trim().max(300).optional(),
+    title: z
+      .string()
+      .trim()
+
+      .max(30, {
+        message: "Title must be less than 30 characters",
+      })
+      .optional(),
+    description: z
+      .string()
+      .trim()
+      .max(300, {
+        message: "Description must be less than 300 characters",
+      })
+      .optional(),
     language: z.enum([
       languages[0]?.value as string,
       ...languages.slice(1).map((language) => language.value),

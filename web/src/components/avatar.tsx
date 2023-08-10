@@ -23,6 +23,7 @@ export function Avatar({
   const gradient = generateGradient(profile?.id ?? "");
 
   const sizes = {
+    xxs: "h-4 w-4",
     xs: "h-5 w-5",
     sm: "h-6 w-6",
     md: "h-7 w-7",

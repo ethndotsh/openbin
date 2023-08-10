@@ -22,6 +22,7 @@ export function LoginComponent({
 
   async function handleOAuthLogin(provider: Provider) {
     if (beforeLogin) beforeLogin();
+
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
