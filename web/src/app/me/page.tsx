@@ -2,8 +2,11 @@ import { Calendar, Hash, Info, PersonStandingIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { getSession } from "@/utils/supabase";
 
-const Me = () => {
+const Me = async () => {
+  const session = await getSession();
+
   return (
     <>
       <div className="l mx-auto mt-8 max-w-5xl p-2">
@@ -38,15 +41,11 @@ const Me = () => {
               <div className="space-y-2">
                 <div className="mb-1 flex flex-row items-center gap-2">
                   <Calendar className="hidden h-5 w-5 md:block" />
-                  <h4 className="text-md font-medium">
-                    Join Date:
-                  </h4>
+                  <h4 className="text-md font-medium">Join Date:</h4>
                 </div>
                 <div className="mb-1 flex flex-row items-center gap-2">
                   <Hash className="hidden h-5 w-5 md:block" />
-                  <h4 className="text-md font-medium">
-                    Uploads:
-                  </h4>
+                  <h4 className="text-md font-medium">Uploads:</h4>
                 </div>
               </div>
             </div>
