@@ -5,6 +5,8 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  title: "Openbin",
+  description: "Openbin is a free and open source pastebin alternative.",
   openGraph: {
     title: "Openbin",
     description: "Openbin is a free and open source pastebin alternative.",
