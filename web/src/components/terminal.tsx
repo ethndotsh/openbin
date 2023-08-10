@@ -40,9 +40,6 @@ const lines = [
   },
 ] as Line[];
 
-interface TerminalProps {
-  lines: Line[];
-}
 const Terminal = () => {
   const [currentLine, setCurrentLine] = useState(0);
   const [displayText, setDisplayText] = useState("");
