@@ -8,16 +8,16 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Openbin",
     description: "Openbin is a free and open source pastebin alternative.",
-    url: "https://openbin.vercel.app/",
+    url: "https://openbin.dev/",
     images: [
       {
-        url: '/assets/image.png',
+        url: "/assets/image.png",
         width: 800,
         height: 600,
       },
     ],
   },
-}
+};
 
 export default function RootLayout({
   children,
