@@ -3,6 +3,7 @@
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Provider } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -19,22 +20,10 @@ export function LoginComponent({
   const [loading, setLoading] = useState(false);
   const [checkEmail, setCheckEmail] = useState(false);
 
-  async function handleGithubLogin() {
+  async function handleOAuthLogin(provider: Provider) {
     if (beforeLogin) beforeLogin();
     const { error } = await supabase.auth.signInWithOAuth({
-      provider: "github",
-      options: {
-        redirectTo: redirectTo
-          ? `${location.origin}/auth/callback/${encodeURIComponent(redirectTo)}`
-          : `${location.origin}/auth/callback`,
-      },
-    });
-  }
-
-  async function handleGoogleLogin() {
-    if (beforeLogin) beforeLogin();
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
+      provider,
       options: {
         redirectTo: redirectTo
           ? `${location.origin}/auth/callback/${encodeURIComponent(redirectTo)}`
@@ -63,20 +52,21 @@ export function LoginComponent({
         return res;
       });
   }
+
   return (
     <div className="mx-auto w-full space-y-2">
       {!checkEmail ? (
         <>
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-3">
             <Button
               variant="outline"
-              className="rounded-r-none"
-              onClick={handleGithubLogin}
+              className="rounded-r-none border-r-0"
+              onClick={() => handleOAuthLogin("github")}
             >
               <svg
                 role="img"
                 viewBox="0 0 24 24"
-                className="mr-2 h-4 w-4"
+                className="mr-2 h-4 w-4 shrink-0"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="#000"
               >
@@ -86,42 +76,77 @@ export function LoginComponent({
             </Button>
             <Button
               variant="outline"
-              className="rounded-l-none border-l-0"
-              onClick={handleGoogleLogin}
+              className="rounded-none"
+              onClick={() => handleOAuthLogin("gitlab")}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="mr-2 h-4 w-4"
-                viewBox="0 0 186.69 190.5"
+                className="mr-2 h-4 w-4 shrink-0"
+                viewBox="0 0 586 559"
               >
-                <g transform="translate(1184.583 765.171)">
+                <path
+                  fill="#e24329"
+                  d="m293 548.3 107.5-330.8H185.6L293 548.3z"
+                />
+                <path
+                  fill="#fca326"
+                  d="M35 217.5 2.3 318c-3 9.1.2 19.2 8.1 24.9L293 548.3 35 217.5z"
+                />
+                <path
+                  fill="#e24329"
+                  d="M35 217.5h150.6L120.8 18.3c-3.3-10.2-17.8-10.2-21.2 0L35 217.5z"
+                />
+                <path
+                  fill="#fca326"
+                  d="M551.2 217.5 583.8 318c3 9.1-.2 19.2-8.1 24.9L293 548.3l258.2-330.8z"
+                />
+                <path
+                  fill="#e24329"
+                  d="M551.2 217.5H400.6l64.7-199.2c3.3-10.2 17.8-10.2 21.2 0l64.7 199.2z"
+                />
+                <path
+                  fill="#fc6d26"
+                  d="m293 548.3 107.6-330.8h150.6zm0 0L35 217.5h150.6z"
+                />
+              </svg>
+              GitLab
+            </Button>
+            <Button
+              variant="outline"
+              className="rounded-l-none border-l-0"
+              onClick={() => handleOAuthLogin("bitbucket")}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 62.4 62.4"
+                className="mr-2 h-4 w-4 shrink-0"
+              >
+                <defs>
+                  <linearGradient
+                    id="a"
+                    x1="64"
+                    x2="33"
+                    y1="30.3"
+                    y2="54.5"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop offset=".2" stopColor="#0052cc" />
+                    <stop offset="1" stopColor="#2684ff" />
+                  </linearGradient>
+                </defs>
+                <g>
                   <path
-                    clipPath="none"
-                    mask="none"
-                    d="M-1089.333-687.239v36.888h51.262c-2.251 11.863-9.006 21.908-19.137 28.662l30.913 23.986c18.011-16.625 28.402-41.044 28.402-70.052 0-6.754-.606-13.249-1.732-19.483z"
-                    fill="#4285f4"
+                    fill="#2684ff"
+                    d="M2 3.1a2 2 0 0 0-2 2.4L8.5 57a2.7 2.7 0 0 0 2.7 2.3h40.7a2 2 0 0 0 2-1.7l8.5-52.1a2 2 0 0 0-2-2.4Zm35.8 37.3h-13L21.1 22H41Z"
                   />
                   <path
-                    clipPath="none"
-                    mask="none"
-                    d="M-1142.714-651.791l-6.972 5.337-24.679 19.223h0c15.673 31.086 47.796 52.561 85.03 52.561 25.717 0 47.278-8.486 63.038-23.033l-30.913-23.986c-8.486 5.715-19.31 9.179-32.125 9.179-24.765 0-45.806-16.712-53.34-39.226z"
-                    fill="#34a853"
-                  />
-                  <path
-                    clipPath="none"
-                    mask="none"
-                    d="M-1174.365-712.61c-6.494 12.815-10.217 27.276-10.217 42.689s3.723 29.874 10.217 42.689c0 .086 31.693-24.592 31.693-24.592-1.905-5.715-3.031-11.776-3.031-18.098s1.126-12.383 3.031-18.098z"
-                    fill="#fbbc05"
-                  />
-                  <path
-                    d="M-1089.333-727.244c14.028 0 26.497 4.849 36.455 14.201l27.276-27.276c-16.539-15.413-38.013-24.852-63.731-24.852-37.234 0-69.359 21.388-85.032 52.561l31.692 24.592c7.533-22.514 28.575-39.226 53.34-39.226z"
-                    fill="#ea4335"
-                    clipPath="none"
-                    mask="none"
+                    fill="url(#a)"
+                    d="M59.7 25.1H40.9l-3.1 18.4h-13L9.3 61.7a2.7 2.7 0 0 0 1.8.7h40.7a2 2 0 0 0 2-1.7Z"
+                    transform="translate(0 -3.1)"
                   />
                 </g>
               </svg>
-              Google
+              Bitbucket
             </Button>
           </div>
           <Input

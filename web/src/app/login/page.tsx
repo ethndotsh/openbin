@@ -18,7 +18,7 @@ export default function Login() {
               <div className="pt-36">
                 <h1 className="mt-1 text-3xl font-bold lg:text-4xl">Login</h1>
 
-                <div className="w-72 pt-8">
+                <div className="w-80 pt-8">
                   <LoginComponent />
                 </div>
               </div>
