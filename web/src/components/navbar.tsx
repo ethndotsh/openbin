@@ -5,15 +5,18 @@ import { Logo } from "./logo";
 import Link from "next/link";
 import { Avatar } from "./avatar";
 import { Button } from "./ui/button";
+import { Profile } from "types/types";
 
 export function Navbar({
   rightActions,
   leftActions,
   session,
+  profile,
 }: {
   rightActions?: React.ReactNode | React.ReactNode[];
   leftActions?: React.ReactNode | React.ReactNode[];
   session: Session | null;
+  profile: Profile | null;
 }) {
   return (
     <nav className="grid grid-cols-2 px-4 py-2">
@@ -27,7 +30,7 @@ export function Navbar({
       <div className="flex flex-row items-center justify-end gap-4">
         {session?.user ? (
           <Link href="/me">
-            <Avatar id={session.user.id} size="md" />
+            <Avatar profile={profile} size="md" />
           </Link>
         ) : (
           <Link href="/login">

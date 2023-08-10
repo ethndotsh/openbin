@@ -9,10 +9,17 @@ import { useSearchParams } from "next/navigation";
 
 import { Session } from "@supabase/supabase-js";
 import { EditorNavbar } from "./navbar";
+import { Profile } from "types/types";
 
 const Monaco = dynamic(() => import("@monaco-editor/react"), { ssr: false });
 
-export function MonacoEditor({ session }: { session: Session | null }) {
+export function MonacoEditor({
+  session,
+  profile,
+}: {
+  session: Session | null;
+  profile: Profile | null;
+}) {
   const monaco = useMonaco();
   const [selectedLanguage, setLanguage] = useState("plaintext");
   const [publishOpen, setPublishOpen] = useState(false);
@@ -41,6 +48,7 @@ export function MonacoEditor({ session }: { session: Session | null }) {
     <div>
       <EditorNavbar
         session={session}
+        profile={profile}
         selectedLanguage={selectedLanguage}
         setLanguage={setLanguage}
         value={value}

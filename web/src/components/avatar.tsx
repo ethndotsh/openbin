@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { murmur2 } from "murmurhash2";
 import color from "tinycolor2";
+import { Profile } from "types/types";
 
 function generateGradient(id: string) {
   const c1 = color({ h: murmur2(id, 360) % 360, s: 0.95, l: 0.5 });
@@ -12,8 +13,14 @@ function generateGradient(id: string) {
   };
 }
 
-export function Avatar({ id, size = "sm" }: { id: string; size?: string }) {
-  const gradient = generateGradient(id);
+export function Avatar({
+  profile,
+  size = "sm",
+}: {
+  profile: Profile | null;
+  size?: string;
+}) {
+  const gradient = generateGradient(profile?.id ?? "");
 
   const sizes = {
     xs: "h-5 w-5",
@@ -21,12 +28,22 @@ export function Avatar({ id, size = "sm" }: { id: string; size?: string }) {
     md: "h-7 w-7",
   }[size];
 
-  return (
-    <div
-      className={clsx(sizes, "aspect-square shrink-0 rounded-full")}
-      style={{
-        backgroundImage: `linear-gradient(to bottom right, ${gradient.fromColor}, ${gradient.toColor})`,
-      }}
-    ></div>
-  );
+  if (!profile?.avatar_url) {
+    return (
+      <div
+        className={clsx(sizes, "aspect-square shrink-0 rounded-full")}
+        style={{
+          backgroundImage: `linear-gradient(to bottom right, ${gradient.fromColor}, ${gradient.toColor})`,
+        }}
+      ></div>
+    );
+  } else {
+    return (
+      <img
+        src={profile.avatar_url}
+        alt={profile.username ?? profile.full_name ?? "Untitled User"}
+        className={clsx(sizes, "aspect-square shrink-0 rounded-full")}
+      />
+    );
+  }
 }

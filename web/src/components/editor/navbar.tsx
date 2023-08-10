@@ -40,6 +40,7 @@ import {
 } from "@/components/ui/popover";
 import { Session } from "@supabase/supabase-js";
 import { Input } from "../ui/input";
+import { Profile } from "types/types";
 
 const publishSchema = z.object({
   title: z.string().trim().max(30),
@@ -54,6 +55,7 @@ const publishSchema = z.object({
 
 export function EditorNavbar({
   session,
+  profile,
   selectedLanguage,
   setLanguage,
   value,
@@ -61,6 +63,7 @@ export function EditorNavbar({
   setPublishOpen,
 }: {
   session: Session | null;
+  profile: Profile | null;
   selectedLanguage: string;
   value: string | undefined;
   setLanguage: (language: string) => void;
@@ -170,6 +173,7 @@ export function EditorNavbar({
           </Dialog>
         }
         session={session}
+        profile={profile}
       />
     </>
   );

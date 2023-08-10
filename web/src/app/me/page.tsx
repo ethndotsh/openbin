@@ -2,31 +2,37 @@ import { Calendar, Hash, Info, PersonStandingIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { getSession } from "@/utils/supabase";
+import { getPastes, getProfile, getSession } from "@/utils/supabase";
+import Link from "next/link";
 
 const Me = async () => {
   const session = await getSession();
+  const profile = await getProfile();
+  const pastes = await getPastes(profile!.id);
 
   return (
     <>
-      <div className="l mx-auto mt-8 max-w-5xl p-2">
+      <div className="mx-auto mt-8 max-w-5xl p-2">
         <div className="relative">
-          <Image
+          {/* <Image
             className="h-[244px] w-full rounded-xl object-cover"
-            src="/assets/profile-bg.png"
+            src={profile?.avatar_url ?? "/assets/banner-placeholder.png"}
             alt="banner"
             draggable="false"
-          />
-          <div className="absolute left-0 top-0 h-full w-full select-none rounded-xl bg-black/30" />
-          <div className="absolute left-1/2 top-1/2 -translate-x-[50%] -translate-y-[50%] space-y-1">
+            width={244}
+            height={244}
+          /> */}
+          <div className="flex h-full w-full flex-col justify-center space-y-1 rounded-xl bg-black/30 py-4">
             <Image
               className="mx-auto h-auto w-32 rounded-full"
-              src="/assets/pfp-placeholder.png"
+              src={profile?.avatar_url ?? "/assets/avatar-placeholder.png"}
               alt="avatar"
               draggable="false"
+              width={128}
+              height={128}
             />
-            <h4 className="pt-3 text-3xl font-semibold text-white">
-              Alexander
+            <h4 className="pt-3 text-center text-3xl font-semibold text-white">
+              {profile?.full_name ?? profile?.username ?? "Untitled User"}
             </h4>
           </div>
         </div>
@@ -42,10 +48,16 @@ const Me = async () => {
                 <div className="mb-1 flex flex-row items-center gap-2">
                   <Calendar className="hidden h-5 w-5 md:block" />
                   <h4 className="text-md font-medium">Join Date:</h4>
+                  <p className="text-md font-medium">
+                    {new Date(
+                      profile!.created_at ?? new Date(),
+                    ).toLocaleDateString()}
+                  </p>
                 </div>
                 <div className="mb-1 flex flex-row items-center gap-2">
                   <Hash className="hidden h-5 w-5 md:block" />
                   <h4 className="text-md font-medium">Uploads:</h4>
+                  <p className="text-md font-medium">{pastes?.length}</p>
                 </div>
               </div>
             </div>
@@ -65,29 +77,35 @@ const Me = async () => {
             </div>
 
             <div className="flex w-full flex-wrap gap-1">
-              <div className="rounded-xl border-2 p-2 text-center">
-                <p className="text-md font-semibold">This is a upload</p>
-              </div>
-              <div className="rounded-xl border-2 p-2 text-center">
-                <p className="text-md font-semibold">This is another upload</p>
-              </div>
-              <div className="rounded-xl border-2 p-2 text-center">
-                <p className="text-md font-semibold">This is another upload</p>
-              </div>
-              <div className="rounded-xl border-2 p-2 text-center">
-                <p className="text-md font-semibold">This is another upload</p>
-              </div>
-              <div className="rounded-xl border-2 p-2 text-center">
-                <p className="text-md font-semibold">This is another upload</p>
-              </div>
-              <div className="rounded-xl border-2 p-2 text-center">
-                <p className="text-md font-semibold">
-                  This is another another upload
-                </p>
-              </div>
-              <div className="rounded-xl border-2 p-2 text-center">
-                <p className="text-md font-semibold">Random shit</p>
-              </div>
+              {pastes?.map((paste) => (
+                <Link
+                  className="w-full rounded-xl border-2 px-4 py-3"
+                  key={paste.id}
+                  href={`/pastes/${paste.id}`}
+                >
+                  <h2 className="text-md font-semibold">{paste.title}</h2>
+                  <p className="font-mono text-xs">{paste.language}</p>
+
+                  <Separator className="my-2 w-full" />
+
+                  <p className="text-sm">{paste.description}</p>
+                </Link>
+              ))}
+
+              {pastes?.length === 0 && (
+                <div className="w-full rounded-xl border-2 border-dashed border-gray-200 py-12 text-center">
+                  <p className="text-md font-semibold">No Pastes</p>
+
+                  <p className="text-md font-semibold">
+                    <Link
+                      className="text-blue-500 hover:underline"
+                      href="/editor"
+                    >
+                      Create a Paste
+                    </Link>
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>

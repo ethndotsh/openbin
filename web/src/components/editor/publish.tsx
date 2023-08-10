@@ -57,6 +57,7 @@ export const publish = zact(
       draft: input.draft,
       expires_at: input.expiresAt ? input.expiresAt.toDateString() : null,
       file: `pastes/openbin-${id}.txt`,
+      id: id,
     })
     .select("id");
 
