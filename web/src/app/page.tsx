@@ -80,16 +80,6 @@ export default function Home() {
         </section>
         <aside className="z-10 mb-12 flex items-center md:mb-0">
           <div className="w-full rounded-md border shadow-lg">
-            <div className="relative h-9 rounded-t-md bg-neutral-50">
-              <div className="absolute left-0 top-0 flex h-full flex-row items-center gap-1 pl-3">
-                <div className="h-3.5 w-3.5 rounded-full bg-red-500" />
-                <div className="h-3.5 w-3.5 rounded-full bg-yellow-500" />
-                <div className="h-3.5 w-3.5 rounded-full bg-green-500" />
-              </div>
-              <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center">
-                <p className="text-sm font-medium">kiwi@copple — zsh</p>
-              </div>
-            </div>
             <Terminal />
           </div>
         </aside>

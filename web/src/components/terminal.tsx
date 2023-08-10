@@ -2,6 +2,7 @@
 
 import { v4 as uuidv4 } from "uuid";
 import React, { useEffect, useState } from "react";
+import { X } from "lucide-react";
 
 interface Line {
   text: string;
@@ -10,51 +11,83 @@ interface Line {
   loading?: (remaining: number) => { text: string; delay: number };
 }
 
-const lines = [
-  {
-    text: "curl https://openbin.dev/install.sh | sh",
-    cmd: true,
-    delay: 1000,
-  },
-  {
-    text: "Downloading binary...",
-    cmd: false,
-    delay: 400,
-  },
-  {
-    text: "Installing Openbin...",
-    cmd: false,
-    delay: 200,
-  },
-  {
-    text: "🎉 Openbin Installed",
-    cmd: false,
-    delay: 800,
-  },
-  {
-    text: "ob upload index.ts",
-    cmd: true,
-  },
-  {
-    text: "Uploading file...",
-    delay: 1000,
-    cmd: false,
-  },
-  {
-    text: "",
-    cmd: false,
-  },
-  {
-    text: `File uploaded successfully, accessible at https://openbin.dev/pastes/xxxxxxxx`,
-    cmd: false,
-  },
-] as Line[];
+function getLines(os: string) {
+  return [
+    {
+      text: `${
+        os === "windows"
+          ? "irm https://openbin.dev/install.ps1 | iex"
+          : "curl -fsSL https://openbin.dev/install.sh | sh"
+      }`,
+      cmd: true,
+      delay: 1000,
+    },
+    {
+      text: "Downloading binary...",
+      cmd: false,
+      delay: 400,
+    },
+    {
+      text: "Installing Openbin...",
+      cmd: false,
+      delay: 200,
+    },
+    {
+      text: "🎉 Openbin Installed",
+      cmd: false,
+      delay: 800,
+    },
+    {
+      text: "ob upload index.ts",
+      cmd: true,
+    },
+    {
+      text: "Uploading file...",
+      delay: 1000,
+      cmd: false,
+    },
+    {
+      text: "",
+      cmd: false,
+    },
+    {
+      text: `File uploaded successfully, accessible at https://openbin.dev/pastes/xxxxxxxx`,
+      cmd: false,
+    },
+  ] as Line[];
+}
 
 const Terminal = () => {
+  function getOS() {
+    if (typeof window === "undefined") return "linux";
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    const macosPlatforms = /(macintosh|macintel|macppc|mac68k|macos)/i;
+    const windowsPlatforms = /(win32|win64|windows|wince)/i;
+    let os = null;
+
+    if (macosPlatforms.test(userAgent)) {
+      os = "macos";
+    } else if (windowsPlatforms.test(userAgent)) {
+      os = "windows";
+    } else {
+      os = "linux";
+    }
+
+    return os;
+  }
+
+  const [lines, setLines] = useState<Line[] | undefined>();
+  const [os, setOs] = useState<string | undefined>();
   const [currentLine, setCurrentLine] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [rendering, setRendering] = useState(true);
   const [commandLine, setCommandLine] = useState(true);
+
+  useEffect(() => {
+    const operatingSystem = getOS();
+    setLines(getLines(operatingSystem));
+    setOs(operatingSystem);
+  }, []);
 
   useEffect(() => {
     const typeLine = async (line: Line) => {
@@ -72,7 +105,7 @@ const Terminal = () => {
       }
     };
 
-    if (currentLine < lines.length) {
+    if (lines && currentLine < lines.length) {
       const line = lines[currentLine];
       if (line && line.cmd) {
         setCommandLine(true);
@@ -89,36 +122,66 @@ const Terminal = () => {
           setCurrentLine((prev) => prev + 1);
         }
       }
-    } else {
+    } else if (lines) {
       setRendering(false);
     }
-  }, [currentLine]);
+  }, [currentLine, lines]);
 
   return (
-    <div className="wrap h-64 w-full whitespace-pre-wrap rounded-b-md bg-[#262626] p-2 text-sm text-white">
-      <pre className="whitespace-pre-wrap">
-        {displayText}
-        {commandLine && (
-          <span
-            style={{ animation: "1s blink step-end infinite" }}
-            className="text-fuchsia-500"
-          >
-            █
-          </span>
+    <>
+      <div className="relative h-9 rounded-t-md bg-neutral-50">
+        {os === "windows" ? (
+          <div className="absolute right-0 top-0 flex h-full flex-row items-center gap-1 pr-3">
+            <X className="h-4 w-4" />
+          </div>
+        ) : os === "linux" || os === "macos" ? (
+          <div className="absolute left-0 top-0 flex h-full flex-row items-center gap-1 pl-3">
+            <div className="h-3.5 w-3.5 rounded-full bg-red-500" />
+            <div className="h-3.5 w-3.5 rounded-full bg-yellow-500" />
+            <div className="h-3.5 w-3.5 rounded-full bg-green-500" />
+          </div>
+        ) : (
+          <></>
         )}
-      </pre>
-      {!rendering && (
-        <div className="font-mono">
-          <span className="">kiwi ~ $</span>{" "}
-          <span
-            style={{ animation: "1s blink step-end infinite" }}
-            className="text-fuchsia-500"
-          >
-            █
-          </span>
+
+        <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center">
+          <p className="text-sm font-medium">
+            kiwi@copple —{" "}
+            {os === "macos"
+              ? "zsh"
+              : os === "windows"
+              ? "powershell"
+              : os === "linux"
+              ? "terminal"
+              : "..."}{" "}
+          </p>
         </div>
-      )}
-    </div>
+      </div>
+      <div className="wrap h-64 w-full whitespace-pre-wrap rounded-b-md bg-[#262626] p-2 text-sm text-white">
+        <pre className="whitespace-pre-wrap">
+          {displayText}
+          {commandLine && (
+            <span
+              style={{ animation: "1s blink step-end infinite" }}
+              className="text-fuchsia-500"
+            >
+              █
+            </span>
+          )}
+        </pre>
+        {!rendering && (
+          <div className="font-mono">
+            <span className="">kiwi ~ $</span>{" "}
+            <span
+              style={{ animation: "1s blink step-end infinite" }}
+              className="text-fuchsia-500"
+            >
+              █
+            </span>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 
