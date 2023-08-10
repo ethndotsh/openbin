@@ -11,7 +11,7 @@ import { redirect } from "next/navigation";
 
 export const publish = zact(
   z.object({
-    title: z.string().trim().max(30),
+    title: z.string().trim().min(2).max(30).optional(),
     description: z.string().trim().max(300).optional(),
     language: z.enum([
       languages[0]?.value as string,
