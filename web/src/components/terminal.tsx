@@ -12,14 +12,24 @@ interface Line {
 
 const lines = [
   {
-    text: "npm i -g openbin",
+    text: "curl https://openbin.dev/install.sh | sh",
     cmd: true,
     delay: 1000,
   },
   {
-    text: "Installed successfully.",
+    text: "Downloading binary...",
     cmd: false,
-    delay: 1000,
+    delay: 400,
+  },
+  {
+    text: "Installing Openbin...",
+    cmd: false,
+    delay: 200,
+  },
+  {
+    text: "🎉 Openbin Installed",
+    cmd: false,
+    delay: 800,
   },
   {
     text: "ob upload index.ts",
@@ -35,7 +45,7 @@ const lines = [
     cmd: false,
   },
   {
-    text: `File uploaded successfully, accessible at https://openbin.dev/pastes/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`,
+    text: `File uploaded successfully, accessible at https://openbin.dev/pastes/xxxxxxxx`,
     cmd: false,
   },
 ] as Line[];
@@ -49,7 +59,7 @@ const Terminal = () => {
   useEffect(() => {
     const typeLine = async (line: Line) => {
       for (let i = 0; i < line.text.length; i++) {
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        await new Promise((resolve) => setTimeout(resolve, 110));
         setDisplayText((prev) => prev + line.text[i]);
       }
       setDisplayText((prev) => prev + "\n");
