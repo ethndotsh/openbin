@@ -26,7 +26,7 @@ func Run() {
 		},
 		Action: func(cCtx *cli.Context) error {
 			if cCtx.Bool("version") {
-				fmt.Println("openbin version 1.0.3")
+				fmt.Println("openbin version 1.0.4")
 				return nil
 			}
 			fmt.Println("Welcome to openbin! Run `openbin help` to get started.")
