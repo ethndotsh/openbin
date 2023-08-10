@@ -14,33 +14,33 @@ export interface Database {
           author: string | null
           created_at: string | null
           description: string | null
+          draft: boolean | null
           expires_at: string | null
           file: string | null
           id: string
-          private: boolean | null
-          syntax: string | null
+          language: string | null
           title: string | null
         }
         Insert: {
           author?: string | null
           created_at?: string | null
           description?: string | null
+          draft?: boolean | null
           expires_at?: string | null
           file?: string | null
           id?: string
-          private?: boolean | null
-          syntax?: string | null
+          language?: string | null
           title?: string | null
         }
         Update: {
           author?: string | null
           created_at?: string | null
           description?: string | null
+          draft?: boolean | null
           expires_at?: string | null
           file?: string | null
           id?: string
-          private?: boolean | null
-          syntax?: string | null
+          language?: string | null
           title?: string | null
         }
         Relationships: [
