@@ -35,7 +35,7 @@ const lines = [
     cmd: false,
   },
   {
-    text: `File uploaded successfully, accessible at https://opb.in/${uuidv4()}`,
+    text: `File uploaded successfully, accessible at https://openbin.dev/pastes/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`,
     cmd: false,
   },
 ] as Line[];
