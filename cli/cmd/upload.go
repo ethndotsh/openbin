@@ -20,11 +20,11 @@ import (
 type UploadOptions struct {
 	File        string
 	Editor      string
-	Private     bool
+	Draft       bool
 	Expire      string
 	Title       string
 	Description string
-	Syntax      string
+	Language    string
 	Copy        bool
 	Open        bool
 	Quiet       bool
@@ -43,9 +43,9 @@ var UploadCommand = cli.Command{
 			Required: false,
 		},
 		&cli.BoolFlag{
-			Name:     "private",
-			Aliases:  []string{"p"},
-			Usage:    "Set the paste to private.",
+			Name:     "draft",
+			Aliases:  []string{"d"},
+			Usage:    "Set the paste to draft (private).",
 			Required: false,
 		},
 		&cli.StringFlag{
@@ -67,9 +67,9 @@ var UploadCommand = cli.Command{
 			Required: false,
 		},
 		&cli.StringFlag{
-			Name:     "syntax",
-			Aliases:  []string{"s"},
-			Usage:    "Set the paste syntax.",
+			Name:     "language",
+			Aliases:  []string{"l"},
+			Usage:    "Set the paste language.",
 			Required: false,
 		},
 		&cli.BoolFlag{
@@ -95,30 +95,30 @@ var UploadCommand = cli.Command{
 		args := UploadOptions{
 			File:        cCtx.Args().First(),
 			Editor:      cCtx.String("editor"),
-			Private:     cCtx.Bool("private"),
+			Draft:       cCtx.Bool("draft"),
 			Expire:      cCtx.String("expire"),
 			Title:       cCtx.String("title"),
 			Description: cCtx.String("description"),
-			Syntax:      cCtx.String("syntax"),
+			Language:    cCtx.String("language"),
 			Copy:        cCtx.Bool("copy"),
 			Open:        cCtx.Bool("open"),
 			Quiet:       cCtx.Bool("quiet"),
 		}
 
-		if args.Syntax == "" {
-			// Try to get the syntax from the file extension
+		if args.Language == "" {
+			// Try to get the language from the file extension
 			if args.File != "" {
 				if config.IsFileTypeAllowed(args.File) {
 					filetype := config.GetFileTypeByFilePath(args.File)
-					args.Syntax = filetype.Value
+					args.Language = filetype.Value
 				} else {
 					return cli.Exit(fmt.Sprintf("The file type you specified is not allowed.\nYou specified: %s\nAllowed types: %s", config.GetFileExtension(args.File), strings.Join(config.GetAllowedTypes(), ", ")), 1)
 				}
 			}
 		} else {
-			// Check if the syntax is allowed
-			if !config.IsFileTypeAllowedByValue(args.Syntax) {
-				return cli.Exit(fmt.Sprintf("The file type you specified is not allowed.\nYou specified: %s\nAllowed types: %s", config.GetFileExtension(args.Syntax), strings.Join(config.GetAllowedTypes(), ", ")), 1)
+			// Check if the language is allowed
+			if !config.IsFileTypeAllowedByValue(args.Language) {
+				return cli.Exit(fmt.Sprintf("The file type you specified is not allowed.\nYou specified: %s\nAllowed types: %s", config.GetFileExtension(args.Language), strings.Join(config.GetAllowedTypes(), ", ")), 1)
 			}
 		}
 
@@ -235,8 +235,8 @@ func UploadFile(path string, opts UploadOptions) {
 		"id":          id,
 		"title":       opts.Title,
 		"description": opts.Description,
-		"syntax":      opts.Syntax,
-		"private":     opts.Private,
+		"language":    opts.Language,
+		"draft":       opts.Draft,
 		"expires_at":  expires_at,
 		"file":        fmt.Sprintf("pastes/openbin-%s.txt", id),
 		"author":      user.ID,
@@ -247,12 +247,12 @@ func UploadFile(path string, opts UploadOptions) {
 	}
 
 	if !opts.Quiet {
-		fmt.Printf("https://openbin.vercel.app/paste/%s\n", id)
+		fmt.Printf("https://openbin.dev/paste/%s\n", id)
 	}
 
 	if opts.Copy {
 		// copy the URL to the clipboard
-		err = clipboard.WriteAll(fmt.Sprintf("https://openbin.vercel.app/paste/%s", id))
+		err = clipboard.WriteAll(fmt.Sprintf("https://openbin.dev/paste/%s", id))
 
 		if err != nil {
 			fmt.Println(err)
@@ -262,7 +262,7 @@ func UploadFile(path string, opts UploadOptions) {
 
 	if opts.Open {
 		// open the URL in the browser
-		err = browser.OpenURL(fmt.Sprintf("https://openbin.vercel.app/paste/%s", id))
+		err = browser.OpenURL(fmt.Sprintf("https://openbin.dev/paste/%s", id))
 
 		if err != nil {
 			fmt.Println(err)
