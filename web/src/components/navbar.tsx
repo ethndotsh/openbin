@@ -21,7 +21,7 @@ export function Navbar({
   return (
     <nav className="grid grid-cols-2 px-4 py-2">
       <div className="flex flex-row items-center gap-4">
-        <Link href={session?.user ? "/me" : "/"}>
+        <Link href={session?.user ? "/editor" : "/"}>
           <Logo className="h-6" />
         </Link>
 

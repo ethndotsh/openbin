@@ -1,9 +1,10 @@
 import { Calendar, Hash, Info, PersonStandingIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
 import { getPastes, getProfile, getSession } from "@/utils/supabase";
 import Link from "next/link";
+import { cn } from "@/utils/cn";
 
 const Me = async () => {
   const session = await getSession();
@@ -62,12 +63,18 @@ const Me = async () => {
               </div>
             </div>
             <div className="flex flex-row gap-2 rounded-xl border p-2">
-              <Button className="w-full bg-blue-500 hover:bg-blue-600">
+              <Button className="w-full" variant="default">
                 Settings
               </Button>
-              <Button className="w-full bg-red-500 hover:bg-red-600">
+              <Link
+                href="/auth/delete"
+                className={cn(
+                  buttonVariants({ variant: "destructive" }),
+                  "w-full",
+                )}
+              >
                 Delete Account
-              </Button>
+              </Link>
             </div>
           </div>
           <div className="col-span-5 p-2">
