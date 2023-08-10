@@ -8,7 +8,7 @@ import type monacoTypes from "monaco-editor";
 import { useSearchParams } from "next/navigation";
 
 import { Session } from "@supabase/supabase-js";
-import { Navbar } from "./navbar";
+import { EditorNavbar } from "./navbar";
 
 const Monaco = dynamic(() => import("@monaco-editor/react"), { ssr: false });
 
@@ -39,7 +39,7 @@ export function MonacoEditor({ session }: { session: Session | null }) {
   }, [monaco, searchParams]);
   return (
     <div>
-      <Navbar
+      <EditorNavbar
         session={session}
         selectedLanguage={selectedLanguage}
         setLanguage={setLanguage}

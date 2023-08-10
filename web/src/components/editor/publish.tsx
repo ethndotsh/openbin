@@ -26,15 +26,15 @@ export const publish = zact(
   const { data: userData, error: userError } = await supabase.auth.getUser();
 
   if (!userData || userError) {
-    throw "Not logged in";
+    throw new Error("Not logged in");
   }
 
   if (!input.value) {
-    throw "Paste is empty";
+    throw new Error("Paste is empty");
   }
 
   if (Buffer.byteLength(input.value, "utf8") / Math.pow(1024, 2) > 1) {
-    throw "Paste is too large";
+    throw new Error("Paste is too large");
   }
 
   const id = uuid();
@@ -44,7 +44,7 @@ export const publish = zact(
     .upload(`pastes/openbin-${id}.txt`, input.value);
 
   if (fileError) {
-    throw fileError;
+    throw new Error(fileError.message);
   }
 
   const { data: pasteData, error: pasteError } = await supabase
@@ -61,7 +61,7 @@ export const publish = zact(
     .select("id");
 
   if (pasteError) {
-    throw pasteError;
+    throw new Error("Failed to create paste");
   }
 
   return redirect(`/pastes/${pasteData[0]?.id}`);
