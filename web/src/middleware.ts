@@ -1,6 +1,8 @@
 import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 import { NextResponse } from "next/server";
 
+import { validate } from "uuid";
+
 import type { NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
@@ -18,9 +20,15 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
+  if (validate(req.nextUrl.pathname.slice(1))) {
+    return NextResponse.redirect(
+      new URL(`/pastes/${req.nextUrl.pathname.slice(1)}`, req.url),
+    );
+  }
+
   return res;
 }
 
 export const config = {
-  matcher: ["/me"],
+  matcher: ["/:path*"],
 };
