@@ -33,6 +33,7 @@ export const publish = zact(
     value: z.string().optional(),
     draft: z.boolean().default(false),
     expiresAt: z.date().optional(),
+    remixOf: z.string().optional(),
   }),
 )(async (input) => {
   const supabase = createServerActionClient<Database>({ cookies });
@@ -71,6 +72,7 @@ export const publish = zact(
       expires_at: input.expiresAt ? input.expiresAt.toDateString() : null,
       file: `pastes/openbin-${id}.txt`,
       id: id,
+      remix_of: input.remixOf,
     })
     .select("id");
 

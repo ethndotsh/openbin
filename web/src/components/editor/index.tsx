@@ -5,26 +5,35 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import theme from "@/assets/gh-light.json";
 import type monacoTypes from "monaco-editor";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { Session } from "@supabase/supabase-js";
 import { EditorNavbar } from "./navbar";
-import { Profile } from "types/types";
+import { Paste, Profile } from "types/types";
+import { getOS } from "@/utils/os";
+import { useHotkeys } from "react-hotkeys-hook";
 
 const Monaco = dynamic(() => import("@monaco-editor/react"), { ssr: false });
 
 export function MonacoEditor({
   session,
   profile,
+  remixData,
+  remixContent,
 }: {
   session: Session | null;
   profile: Profile | null;
+  remixData?: Paste;
+  remixContent?: string;
 }) {
   const monaco = useMonaco();
   const [selectedLanguage, setLanguage] = useState("plaintext");
   const [publishOpen, setPublishOpen] = useState(false);
-  const [value, setValue] = useState<string | undefined>("Welcome to Openbin!");
+  const [value, setValue] = useState<string | undefined>(
+    remixContent ?? "Welcome to Openbin!",
+  );
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   useEffect(() => {
     if (monaco) {
@@ -44,6 +53,11 @@ export function MonacoEditor({
       }
     }
   }, [monaco, searchParams]);
+
+  useHotkeys("ctrl+s,command+s", () => {
+    setPublishOpen(true);
+  });
+
   return (
     <div>
       <EditorNavbar
@@ -54,6 +68,7 @@ export function MonacoEditor({
         value={value}
         publishOpen={publishOpen}
         setPublishOpen={setPublishOpen}
+        remixData={remixData}
       />
       <div className="w-full border-b" />
       <Monaco

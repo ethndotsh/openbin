@@ -43,13 +43,13 @@ export async function getProfile() {
   }
 }
 
-export async function getPastes(id: string) {
+export async function getPastes(author: string) {
   const supabase = createServerComponentClient();
   try {
     const { data: pastes, error } = await supabase
       .from("pastes")
       .select("*")
-      .eq("author", id)
+      .eq("author", author)
       .order("created_at", { ascending: false });
     if (error) throw error;
     return pastes;

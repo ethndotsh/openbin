@@ -65,14 +65,17 @@ const publishSchema = z.object({
   ),
   draft: z.boolean().default(false),
   expiresAt: z.date().optional(),
+  remixOf: z.string().optional(),
 });
 
 export function PublishForm({
   selectedLanguage,
   pasteValue,
+  defaultValues,
 }: {
   selectedLanguage: string;
   pasteValue: string | undefined;
+  defaultValues?: Partial<z.infer<typeof publishSchema>>;
 }) {
   const [languageSelectOpen, setLanguageSelectOpen] = useState(false);
   const form = useForm<z.infer<typeof publishSchema>>({
@@ -83,6 +86,7 @@ export function PublishForm({
       language: selectedLanguage,
       draft: false,
       expiresAt: undefined,
+      ...defaultValues,
     },
   });
   const { mutate, data, isLoading, error } = useZact(publish);

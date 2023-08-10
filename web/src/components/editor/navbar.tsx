@@ -40,7 +40,7 @@ import {
 } from "@/components/ui/popover";
 import { Session } from "@supabase/supabase-js";
 import { Input } from "../ui/input";
-import { Profile } from "types/types";
+import { Paste, Profile } from "types/types";
 
 const publishSchema = z.object({
   title: z.string().trim().max(30),
@@ -61,6 +61,7 @@ export function EditorNavbar({
   value,
   publishOpen,
   setPublishOpen,
+  remixData,
 }: {
   session: Session | null;
   profile: Profile | null;
@@ -69,6 +70,7 @@ export function EditorNavbar({
   setLanguage: (language: string) => void;
   publishOpen: boolean;
   setPublishOpen: (open: boolean) => void;
+  remixData?: Paste;
 }) {
   const [languageSelectOpen, setLanguageSelectOpen] = useState(false);
 
@@ -149,6 +151,14 @@ export function EditorNavbar({
                   <PublishForm
                     selectedLanguage={selectedLanguage}
                     pasteValue={value}
+                    defaultValues={{
+                      title: remixData?.title
+                        ? `Remix of ${remixData.title}`
+                        : "",
+                      description: remixData?.description ?? undefined,
+                      language: remixData?.language ?? selectedLanguage,
+                      remixOf: remixData?.id ?? undefined,
+                    }}
                   />
                 </>
               ) : (
