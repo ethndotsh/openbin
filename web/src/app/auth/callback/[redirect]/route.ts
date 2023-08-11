@@ -21,5 +21,21 @@ export async function GET(
     );
   }
 
-  return NextResponse.redirect(new URL("/me", req.url));
+  const {
+    data: { session },
+    error: sessionError,
+  } = await supabase.auth.getSession();
+
+  if (sessionError) {
+    console.error("Error:", sessionError);
+    throw sessionError;
+  }
+
+  if (!session) {
+    throw new Error("No session");
+  }
+
+  return NextResponse.redirect(
+    new URL(`/profiles/${session.user.id}`, req.url),
+  );
 }

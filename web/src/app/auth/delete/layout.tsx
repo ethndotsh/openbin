@@ -12,7 +12,12 @@ export default async function AuthDeleteLayout({
   children: ReactNode;
 }) {
   const session = await getSession();
-  const profile = await getProfile();
+
+  if (!session) {
+    throw new Error("Not logged in");
+  }
+
+  const profile = await getProfile(session.user.id);
   return (
     <>
       <Navbar session={session} profile={profile} />

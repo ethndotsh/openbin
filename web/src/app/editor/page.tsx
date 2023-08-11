@@ -12,7 +12,12 @@ export default async function Page({
   searchParams: { remix?: string };
 }) {
   const session = await getSession();
-  const profile = await getProfile();
+
+  if (!session) {
+    throw new Error("Not logged in");
+  }
+
+  const profile = await getProfile(session?.user.id);
   const supabase = createServerComponentClient();
 
   let remixData: Paste | undefined;

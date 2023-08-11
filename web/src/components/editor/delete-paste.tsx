@@ -30,7 +30,17 @@ export default function DeletePasteConfirmation({ paste }: { paste: Paste }) {
     await supabase.storage.from("pastes").remove([paste.file]);
     setOpen(false);
     setDeleting(false);
-    router.push("/me");
+    const {
+      data: { session },
+      error: sessionError,
+    } = await supabase.auth.getSession();
+    if (sessionError) {
+      throw new Error(sessionError.message);
+    }
+    if (!session) {
+      throw new Error("Not logged in");
+    }
+    router.push(session?.user.id);
   };
 
   return (

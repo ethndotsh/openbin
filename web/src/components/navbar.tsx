@@ -29,7 +29,7 @@ export function Navbar({
       </div>
       <div className="flex flex-row items-center justify-end gap-4">
         {session?.user ? (
-          <Link href="/me">
+          <Link href={`/profiles/${session.user.id}`}>
             <Avatar profile={profile} size="md" />
           </Link>
         ) : (

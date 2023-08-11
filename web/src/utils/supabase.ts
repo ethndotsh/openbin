@@ -21,19 +21,13 @@ export async function getSession() {
   }
 }
 
-export async function getProfile() {
+export async function getProfile(id: string) {
   const supabase = createServerComponentClient();
   try {
-    const {
-      data: { user },
-      error: userError,
-    } = await supabase.auth.getUser();
-    if (userError) throw userError;
-    if (!user) return null;
     const { data: profile, error } = await supabase
       .from("profiles")
       .select("*")
-      .eq("id", user.id)
+      .eq("id", id)
       .single();
     if (error) throw error;
     return profile;
