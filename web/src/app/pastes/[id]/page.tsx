@@ -20,6 +20,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const supabase = createServerComponentClient();
+  const session = await getSession();
   // read route params
   const id = params.id;
 
@@ -28,13 +29,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .from("pastes")
     .select("*")
     .eq("id", id)
-    .eq("draft", false)
     .single();
 
   if (error) {
     return {
       title: "Error",
       description: "Error retrieving paste",
+    };
+  }
+
+  if (paste.draft && paste.author !== session?.user?.id) {
+    return {
+      title: "Openbin",
     };
   }
 
