@@ -44,6 +44,24 @@ export async function getPastes(author: string) {
       .from("pastes")
       .select("*")
       .eq("author", author)
+
+      .order("created_at", { ascending: false });
+    if (error) throw error;
+    return pastes;
+  } catch (error) {
+    console.error("Error:", error);
+    return null;
+  }
+}
+
+export async function getPublicPastes(author: string) {
+  const supabase = createServerComponentClient();
+  try {
+    const { data: pastes, error } = await supabase
+      .from("pastes")
+      .select("*")
+      .eq("author", author)
+      .eq("draft", false)
       .order("created_at", { ascending: false });
     if (error) throw error;
     return pastes;

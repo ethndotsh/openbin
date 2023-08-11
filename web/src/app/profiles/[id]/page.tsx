@@ -2,130 +2,175 @@ import { Calendar, Hash, Info, PersonStandingIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Button, buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
-import { getPastes, getProfile, getSession } from "@/utils/supabase";
+import {
+  getPastes,
+  getProfile,
+  getPublicPastes,
+  getSession,
+} from "@/utils/supabase";
 import Link from "next/link";
 import { cn } from "@/utils/cn";
 import { redirect } from "next/navigation";
+import { Paste } from "types/types";
+import { Cog, Trash2, PlusCircle } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const Profile = async ({ params }: { params: { id: string } }) => {
   const session = await getSession();
+
   const profile = await getProfile(params.id);
 
   if (!profile) {
-    return redirect("/");
+    throw new Error("Profile not found");
   }
 
-  const pastes = await getPastes(profile?.id);
+  let pastes: Paste[] | null;
+
+  if (session && profile.id === session.user.id) {
+    pastes = await getPastes(profile.id);
+  } else {
+    pastes = await getPublicPastes(profile.id);
+  }
 
   return (
-    <>
-      <div className="mx-auto mt-8 max-w-5xl p-2">
-        <div className="relative">
-          {/* <Image
-            className="h-[244px] w-full rounded-xl object-cover"
-            src={profile?.avatar_url ?? "/assets/banner-placeholder.png"}
-            alt="banner"
+    <TooltipProvider>
+      <div className="mx-auto grid h-full w-full max-w-5xl grid-cols-2 overflow-hidden px-4 py-8">
+        <div className="flex items-center gap-3">
+          <Image
+            className="z-10 rounded-full"
+            src={
+              profile?.avatar_url ??
+              `/avatar?name=${profile?.username ?? "Untitled User"}`
+            }
+            alt="avatar"
             draggable="false"
-            width={244}
-            height={244}
-          /> */}
-          <div className="flex h-full w-full flex-col justify-center space-y-1 rounded-xl bg-black/30 py-4">
-            <Image
-              className="mx-auto h-auto w-32 rounded-full"
-              src={profile?.avatar_url ?? "/assets/avatar-placeholder.png"}
-              alt="avatar"
-              draggable="false"
-              width={128}
-              height={128}
-            />
-            <h4 className="pt-3 text-center text-3xl font-semibold text-white">
-              {profile?.full_name ?? profile?.username ?? "Untitled User"}
-            </h4>
-          </div>
+            width={48}
+            height={48}
+          />
+          <h4 className="z-10 text-3xl font-semibold text-black">
+            {profile?.username ?? "Untitled User"}
+          </h4>
         </div>
-        <div className="mt-2 grid max-w-4xl grid-cols-8">
-          <div className="col-span-3 space-y-2">
-            <div className="flex flex-wrap rounded-xl border p-2">
-              <div className="mb-1 flex flex-wrap items-center gap-2">
-                <Info className="hidden h-5 w-5 md:block" />
-                <p className="text-lg font-semibold">Information</p>
-              </div>
-              <Separator className="mb-3 w-full" />
-              <div className="space-y-2">
-                <div className="mb-1 flex flex-row items-center gap-2">
-                  <Calendar className="hidden h-5 w-5 md:block" />
-                  <h4 className="text-md font-medium">Join Date:</h4>
-                  <p className="text-md font-medium">
-                    {new Date(
-                      profile!.created_at ?? new Date(),
-                    ).toLocaleDateString()}
-                  </p>
+        <div className="flex items-center justify-end">
+          <div className="flex flex-row gap-2">
+            <Tooltip>
+              <TooltipTrigger>
+                <div className="flex aspect-square h-9 min-w-[2.25rem] cursor-default items-center justify-center rounded-md  border">
+                  {pastes?.length}
                 </div>
-                <div className="mb-1 flex flex-row items-center gap-2">
-                  <Hash className="hidden h-5 w-5 md:block" />
-                  <h4 className="text-md font-medium">Uploads:</h4>
-                  <p className="text-md font-medium">{pastes?.length}</p>
+              </TooltipTrigger>
+              <TooltipContent>Pastes Count</TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger>
+                <div className="flex aspect-square h-9 w-9 cursor-default items-center justify-center rounded-md  border">
+                  <Calendar className="h-5 w-5" />
                 </div>
-              </div>
-            </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                Joined{" "}
+                {new Date(
+                  profile!.created_at ?? new Date(),
+                ).toLocaleDateString()}
+              </TooltipContent>
+            </Tooltip>
+
             {session?.user.id === profile?.id && (
-              <div className="flex flex-row gap-2 rounded-xl border p-2">
-                <Button className="w-full" variant="default">
-                  Settings
-                </Button>
-                <Link
-                  href="/auth/delete"
-                  className={cn(
-                    buttonVariants({ variant: "destructive" }),
-                    "w-full",
-                  )}
-                >
-                  Delete Account
-                </Link>
-              </div>
-            )}
-          </div>
-          <div className="col-span-5 p-2">
-            <div className="mb-1 flex flex-row items-center gap-2">
-              <PersonStandingIcon className="h-6 w-6" />
-              <p className="text-lg font-semibold">Your Pastes</p>
-            </div>
-
-            <div className="flex w-full flex-wrap gap-1">
-              {pastes?.map((paste) => (
-                <Link
-                  className="w-full rounded-xl border-2 px-4 py-3"
-                  key={paste.id}
-                  href={`/pastes/${paste.id}`}
-                >
-                  <h2 className="text-md font-semibold">{paste.title}</h2>
-                  <p className="font-mono text-xs">{paste.language}</p>
-
-                  <Separator className="my-2 w-full" />
-
-                  <p className="text-sm">{paste.description}</p>
-                </Link>
-              ))}
-
-              {pastes?.length === 0 && (
-                <div className="w-full rounded-xl border-2 border-dashed border-gray-200 py-12 text-center">
-                  <p className="text-md font-semibold">No Pastes</p>
-
-                  <p className="text-md font-semibold">
+              <>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button className="flex h-9 w-9 items-center justify-center rounded-md border hover:bg-neutral-50">
+                      <Cog className="h-5 w-5" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent>Settings</TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger>
                     <Link
-                      className="text-blue-500 hover:underline"
-                      href="/editor"
+                      className="flex h-9 w-9 items-center justify-center rounded-md border hover:bg-neutral-50"
+                      href="/auth/delete"
                     >
-                      Create a Paste
+                      <Trash2 className="h-5 w-5 text-red-500" />
                     </Link>
-                  </p>
-                </div>
-              )}
-            </div>
+                  </TooltipTrigger>
+                  <TooltipContent>Delete Account</TooltipContent>
+                </Tooltip>
+              </>
+            )}
           </div>
         </div>
       </div>
-    </>
+      <div className="border-b" />
+      <div className="mx-auto max-w-5xl px-4 py-2">
+        <div className="relative"></div>
+        <div className="mt-2">
+          <div className="mb-4 grid grid-cols-2 gap-2">
+            <div className="flex items-center gap-2">
+              <PersonStandingIcon className="h-6 w-6" />
+              <p className="text-lg font-semibold">
+                {profile.id === session?.user.id && "Your "}Pastes
+              </p>
+            </div>
+            <div className="flex items-center justify-end">
+              {session?.user.id === profile?.id && (
+                <Link href="/editor">
+                  <Button
+                    size="sm"
+                    className="bg-blue-500 transition-all hover:bg-blue-600"
+                  >
+                    <PlusCircle className="mr-2 h-4 w-4" />
+                    Create Paste
+                  </Button>
+                </Link>
+              )}
+            </div>
+          </div>
+
+          <div className="grid gap-2 md:grid-cols-2">
+            {pastes?.map((paste) => (
+              <Link
+                className="group w-full rounded-xl border px-4 py-3 transition-colors hover:bg-neutral-100"
+                key={paste.id}
+                href={`/pastes/${paste.id}`}
+              >
+                <h2 className="text-md font-semibold ">
+                  {paste.title && paste.title.length
+                    ? paste.title
+                    : "Untitled Paste"}
+                </h2>
+                <p className="font-mono text-xs">{paste.language}</p>
+
+                <Separator className="my-2 w-full" />
+
+                <p className="text-sm">
+                  {paste.description ?? "No description"}
+                </p>
+              </Link>
+            ))}
+            {pastes?.length === 0 && (
+              <div className="w-full rounded-xl border-2 border-dashed border-gray-200 py-12 text-center">
+                <p className="text-md font-semibold">No Pastes</p>
+
+                <p className="text-md font-semibold">
+                  <Link
+                    className="text-blue-500 hover:underline"
+                    href="/editor"
+                  >
+                    Create a Paste
+                  </Link>
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </TooltipProvider>
   );
 };
 

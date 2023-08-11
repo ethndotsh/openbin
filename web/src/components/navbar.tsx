@@ -19,7 +19,7 @@ export function Navbar({
   profile: Profile | null;
 }) {
   return (
-    <nav className="grid grid-cols-2 px-4 py-2">
+    <nav className="grid grid-cols-2 px-4 py-2 md:px-8">
       <div className="flex flex-row items-center gap-4">
         <Link href={session?.user ? "/editor" : "/"}>
           <Logo className="h-6" />
@@ -30,7 +30,7 @@ export function Navbar({
       <div className="flex flex-row items-center justify-end gap-4">
         {session?.user ? (
           <Link href={`/profiles/${session.user.id}`}>
-            <Avatar profile={profile} size="md" />
+            <Avatar profile={profile} size="md" dropdown />
           </Link>
         ) : (
           <Link href="/login">

@@ -12,6 +12,7 @@ import { Metadata } from "next";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { Database } from "types/supabase";
+import { Disc3 } from "lucide-react";
 
 type Props = {
   params: { id: string };
@@ -38,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: paste?.title ?? "Untitled Paste",
+    title: `${paste?.title ?? "Untitled Paste"} - Openbin`,
     description: paste?.description ?? undefined,
   };
 }
@@ -62,6 +63,10 @@ export default async function Paste({ params }: { params: { id: string } }) {
     throw new Error(pasteError);
   }
 
+  if (pasteData.draft && pasteData.author !== session?.user.id) {
+    throw new Error("Paste not found");
+  }
+
   const { data: fileData, error: fileError } = await supabase.storage
     .from("pastes")
     .download(pasteData.file);
@@ -79,7 +84,7 @@ export default async function Paste({ params }: { params: { id: string } }) {
   return (
     <div className="flex h-screen w-screen flex-col">
       <div className="flex-1">
-        <div className="grid grid-cols-2 px-8 pb-2 pt-4">
+        <div className="grid grid-cols-2 px-4 pb-2 pt-4 md:px-8">
           <div className="col-span-1">
             <p className="text-sm font-medium text-gray-500">
               <Link
@@ -123,11 +128,12 @@ export default async function Paste({ params }: { params: { id: string } }) {
               href={`/editor?remix=${pasteData.id}`}
               className={buttonVariants({ variant: "outline" })}
             >
+              <Disc3 className="mr-2 h-4 w-4" />
               Remix
             </Link>
           </div>
         </div>
-        <div className="my-2 border-b" />
+        <div className="border-b" />
         <PasteViewer session={session} paste={pasteData} file={file} />
       </div>
     </div>

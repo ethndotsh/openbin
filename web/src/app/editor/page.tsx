@@ -17,27 +17,27 @@ export default async function Page({
   const profile = await getProfile(session?.user.id);
   const supabase = createServerComponentClient();
 
-  let remixData: Paste | undefined;
   let remixContent: string | undefined;
+  let remixData: Paste | undefined;
 
   if (searchParams.remix) {
-    const { data: rD, error: remixError } = await supabase
+    const { data, error } = await supabase
       .from("pastes")
       .select("*, author(*)")
       .eq("id", searchParams.remix)
       .single();
 
-    if (!rD) {
+    if (!data) {
       throw new Error("Remix not found");
     }
 
-    if (remixError) {
-      throw new Error(remixError);
+    if (error) {
+      throw new Error(error);
     }
 
     const { data: fileData, error: fileError } = await supabase.storage
       .from("pastes")
-      .download(rD.file);
+      .download(data.file);
 
     if (fileError) {
       throw new Error(fileError.message);
@@ -49,8 +49,8 @@ export default async function Page({
 
     const file = await fileData.text();
 
-    remixData = rD;
     remixContent = file;
+    remixData = data;
   }
 
   return (
