@@ -21,7 +21,7 @@ export async function getSession() {
   }
 }
 
-export async function getProfile(id: string) {
+export async function getProfile(id?: string) {
   const supabase = createServerComponentClient();
   try {
     const { data: profile, error } = await supabase

@@ -28,11 +28,11 @@ export async function GET(
 
   if (sessionError) {
     console.error("Error:", sessionError);
-    throw sessionError;
+    return;
   }
 
   if (!session) {
-    throw new Error("No session");
+    return;
   }
 
   return NextResponse.redirect(

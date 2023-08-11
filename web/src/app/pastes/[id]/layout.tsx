@@ -13,10 +13,6 @@ export default async function PasteLayout({
 }) {
   const session = await getSession();
 
-  if (!session) {
-    throw new Error("Not logged in");
-  }
-
   const profile = await getProfile(session?.user.id);
   return (
     <>

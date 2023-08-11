@@ -18,11 +18,11 @@ export async function GET(req: NextRequest) {
 
   if (sessionError) {
     console.error("Error:", sessionError);
-    throw sessionError;
+    return;
   }
 
   if (!session) {
-    throw new Error("No session");
+    return;
   }
 
   return NextResponse.redirect(

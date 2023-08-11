@@ -4,6 +4,7 @@ import {
   getProfile,
   getSession,
 } from "@/utils/supabase";
+import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 
 export default async function AuthDeleteLayout({
@@ -14,7 +15,7 @@ export default async function AuthDeleteLayout({
   const session = await getSession();
 
   if (!session) {
-    throw new Error("Not logged in");
+    return redirect("/");
   }
 
   const profile = await getProfile(session.user.id);

@@ -5,13 +5,14 @@ import Image from "next/image";
 import { getPastes, getProfile, getSession } from "@/utils/supabase";
 import Link from "next/link";
 import { cn } from "@/utils/cn";
+import { redirect } from "next/navigation";
 
 const Profile = async ({ params }: { params: { id: string } }) => {
   const session = await getSession();
   const profile = await getProfile(params.id);
 
   if (!profile) {
-    throw new Error("Profile not found");
+    return redirect("/");
   }
 
   const pastes = await getPastes(profile?.id);
