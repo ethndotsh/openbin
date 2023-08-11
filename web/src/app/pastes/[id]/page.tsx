@@ -8,6 +8,40 @@ import { Dialog, DialogTitle } from "@/components/ui/dialog";
 import DeletePasteConfirmation from "@/components/editor/delete-paste";
 import { FormEvent } from "react";
 import { buttonVariants } from "@/components/ui/button";
+import { Metadata } from "next";
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { Database } from "types/supabase";
+
+type Props = {
+  params: { id: string };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const supabase = createServerComponentClient();
+  // read route params
+  const id = params.id;
+
+  // fetch data
+  const { data: paste, error } = await supabase
+    .from("pastes")
+    .select("*")
+    .eq("id", id)
+    .eq("draft", false)
+    .single();
+
+  if (error) {
+    return {
+      title: "Error",
+      description: "Error retrieving paste",
+    };
+  }
+
+  return {
+    title: paste?.title ?? "Untitled Paste",
+    description: paste?.description ?? undefined,
+  };
+}
 
 export default async function Paste({ params }: { params: { id: string } }) {
   const { id } = params;
