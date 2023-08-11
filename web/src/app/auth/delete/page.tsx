@@ -1,8 +1,10 @@
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/utils/cn";
+import { getSession } from "@/utils/supabase";
 import Link from "next/link";
 
-export default function DeletePage() {
+export default async function DeletePage() {
+  const session = await getSession();
   return (
     <div className="flex flex-col py-24">
       <div className="flex-1 ">
@@ -17,7 +19,7 @@ export default function DeletePage() {
           </p>
           <div className="flex w-full max-w-xl flex-row gap-2 rounded-xl border p-2">
             <Link
-              href="/me"
+              href={`/profiles/${session?.user.id}`}
               className={cn(buttonVariants({ variant: "default" }), "w-full")}
             >
               Cancel

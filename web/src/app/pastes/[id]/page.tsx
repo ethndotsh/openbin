@@ -84,7 +84,9 @@ export default async function Paste({ params }: { params: { id: string } }) {
             <p className="text-sm font-medium text-gray-500">
               <Link
                 className="flex items-center gap-1 hover:underline"
-                href={`/profile/${(pasteData.author as unknown as Profile).id}`}
+                href={`/profiles/${
+                  (pasteData.author as unknown as Profile).id
+                }`}
               >
                 <Avatar
                   size="xxs"

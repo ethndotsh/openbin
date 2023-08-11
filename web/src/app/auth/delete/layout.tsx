@@ -4,6 +4,7 @@ import {
   getProfile,
   getSession,
 } from "@/utils/supabase";
+import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 
 export default async function AuthDeleteLayout({
@@ -12,7 +13,12 @@ export default async function AuthDeleteLayout({
   children: ReactNode;
 }) {
   const session = await getSession();
-  const profile = await getProfile();
+
+  if (!session) {
+    return redirect("/");
+  }
+
+  const profile = await getProfile(session.user.id);
   return (
     <>
       <Navbar session={session} profile={profile} />

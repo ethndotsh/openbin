@@ -11,5 +11,21 @@ export async function GET(req: NextRequest) {
     await supabase.auth.exchangeCodeForSession(code);
   }
 
-  return NextResponse.redirect(new URL("/me", req.url));
+  const {
+    data: { session },
+    error: sessionError,
+  } = await supabase.auth.getSession();
+
+  if (sessionError) {
+    console.error("Error:", sessionError);
+    return;
+  }
+
+  if (!session) {
+    return;
+  }
+
+  return NextResponse.redirect(
+    new URL(`/profiles/${session.user.id}`, req.url),
+  );
 }

@@ -5,11 +5,17 @@ import Image from "next/image";
 import { getPastes, getProfile, getSession } from "@/utils/supabase";
 import Link from "next/link";
 import { cn } from "@/utils/cn";
+import { redirect } from "next/navigation";
 
-const Me = async () => {
+const Profile = async ({ params }: { params: { id: string } }) => {
   const session = await getSession();
-  const profile = await getProfile();
-  const pastes = await getPastes(profile!.id);
+  const profile = await getProfile(params.id);
+
+  if (!profile) {
+    return redirect("/");
+  }
+
+  const pastes = await getPastes(profile?.id);
 
   return (
     <>
@@ -62,20 +68,22 @@ const Me = async () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-row gap-2 rounded-xl border p-2">
-              <Button className="w-full" variant="default">
-                Settings
-              </Button>
-              <Link
-                href="/auth/delete"
-                className={cn(
-                  buttonVariants({ variant: "destructive" }),
-                  "w-full",
-                )}
-              >
-                Delete Account
-              </Link>
-            </div>
+            {session?.user.id === profile?.id && (
+              <div className="flex flex-row gap-2 rounded-xl border p-2">
+                <Button className="w-full" variant="default">
+                  Settings
+                </Button>
+                <Link
+                  href="/auth/delete"
+                  className={cn(
+                    buttonVariants({ variant: "destructive" }),
+                    "w-full",
+                  )}
+                >
+                  Delete Account
+                </Link>
+              </div>
+            )}
           </div>
           <div className="col-span-5 p-2">
             <div className="mb-1 flex flex-row items-center gap-2">
@@ -121,4 +129,4 @@ const Me = async () => {
   );
 };
 
-export default Me;
+export default Profile;

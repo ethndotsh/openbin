@@ -107,7 +107,8 @@ var UploadCommand = cli.Command{
 		if args.Language == "" {
 			// Try to get the language from the file extension
 			if args.File != "" {
-				if config.IsFileTypeAllowed(args.File) {
+				fileExt := config.GetFileExtension(args.File)
+				if config.IsFileTypeAllowed(fileExt) {
 					filetype := config.GetFileTypeByFilePath(args.File)
 					args.Language = filetype.Value
 				} else {
@@ -246,12 +247,12 @@ func UploadFile(path string, opts UploadOptions) {
 	}
 
 	if !opts.Quiet {
-		fmt.Printf("https://openbin.dev/paste/%s\n", id)
+		fmt.Printf("https://openbin.dev/pastes/%s\n", id)
 	}
 
 	if opts.Copy {
 		// copy the URL to the clipboard
-		err = clipboard.WriteAll(fmt.Sprintf("https://openbin.dev/paste/%s", id))
+		err = clipboard.WriteAll(fmt.Sprintf("https://openbin.dev/pastes/%s", id))
 
 		if err != nil {
 			fmt.Println(err)
@@ -261,7 +262,7 @@ func UploadFile(path string, opts UploadOptions) {
 
 	if opts.Open {
 		// open the URL in the browser
-		err = browser.OpenURL(fmt.Sprintf("https://openbin.dev/paste/%s", id))
+		err = browser.OpenURL(fmt.Sprintf("https://openbin.dev/pastes/%s", id))
 
 		if err != nil {
 			fmt.Println(err)

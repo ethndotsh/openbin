@@ -5,6 +5,7 @@ import {
 } from "@/utils/supabase";
 import { MonacoEditor } from "@/components/editor";
 import { Paste } from "types/types";
+import { redirect } from "next/navigation";
 
 export default async function Page({
   searchParams,
@@ -12,7 +13,8 @@ export default async function Page({
   searchParams: { remix?: string };
 }) {
   const session = await getSession();
-  const profile = await getProfile();
+
+  const profile = await getProfile(session?.user.id);
   const supabase = createServerComponentClient();
 
   let remixData: Paste | undefined;

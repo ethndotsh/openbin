@@ -12,7 +12,8 @@ export default async function PasteLayout({
   children: ReactNode;
 }) {
   const session = await getSession();
-  const profile = await getProfile();
+
+  const profile = await getProfile(session?.user.id);
   return (
     <>
       <Navbar session={session} profile={profile} />
