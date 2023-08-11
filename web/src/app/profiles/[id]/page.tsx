@@ -82,14 +82,14 @@ const Profile = async ({ params }: { params: { id: string } }) => {
 
             {session?.user.id === profile?.id && (
               <>
-                <Tooltip>
+                {/* <Tooltip>
                   <TooltipTrigger asChild>
                     <button className="flex h-9 w-9 items-center justify-center rounded-md border hover:bg-neutral-50">
                       <Cog className="h-5 w-5" />
                     </button>
                   </TooltipTrigger>
                   <TooltipContent>Settings</TooltipContent>
-                </Tooltip>
+                </Tooltip> */}
                 <Tooltip>
                   <TooltipTrigger>
                     <Link
