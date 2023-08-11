@@ -1,8 +1,10 @@
 import { Calendar, Hash, Info, PersonStandingIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { Metadata } from "next";
 import Image from "next/image";
 import {
+  createServerComponentClient,
   getPastes,
   getProfile,
   getPublicPastes,
@@ -19,6 +21,22 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+
+type Props = {
+  params: { id: string };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  // read route params
+  const id = params.id;
+
+  // fetch data
+  const profile = await getProfile(id);
+
+  return {
+    title: `${profile?.username ?? "Unnamed User"} - Openbin`,
+  };
+}
 
 const Profile = async ({ params }: { params: { id: string } }) => {
   const session = await getSession();
