@@ -50,6 +50,7 @@ export default function DeletePasteConfirmation({ paste }: { paste: Paste }) {
         <DialogFooter>
           <Button
             type="button"
+            variant="ghost"
             onClick={() => setOpen(false)}
             disabled={deleting}
           >
