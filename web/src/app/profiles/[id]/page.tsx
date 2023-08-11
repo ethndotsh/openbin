@@ -12,7 +12,7 @@ import Link from "next/link";
 import { cn } from "@/utils/cn";
 import { redirect } from "next/navigation";
 import { Paste } from "types/types";
-import { Cog, Trash2, PlusCircle } from "lucide-react";
+import { Cog, Trash2, PlusCircle, ClipboardX } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -153,21 +153,13 @@ const Profile = async ({ params }: { params: { id: string } }) => {
                 </p>
               </Link>
             ))}
-            {pastes?.length === 0 && (
-              <div className="w-full rounded-xl border-2 border-dashed border-gray-200 py-12 text-center">
-                <p className="text-md font-semibold">No Pastes</p>
-
-                <p className="text-md font-semibold">
-                  <Link
-                    className="text-blue-500 hover:underline"
-                    href="/editor"
-                  >
-                    Create a Paste
-                  </Link>
-                </p>
-              </div>
-            )}
           </div>
+          {pastes?.length === 0 && (
+            <div className="flex h-96 w-full flex-col items-center justify-center space-y-2 rounded-xl border border-gray-200 py-8 text-center">
+              <ClipboardX className="h-7 w-7 text-gray-400" />
+              <p className="text-md font-semibold">No Pastes</p>
+            </div>
+          )}
         </div>
       </div>
     </TooltipProvider>
