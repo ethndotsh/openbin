@@ -143,6 +143,9 @@ const Profile = async ({ params }: { params: { id: string } }) => {
                   {paste.title && paste.title.length
                     ? paste.title
                     : "Untitled Paste"}
+                  {paste.draft && (
+                    <span className="ml-1 text-sm text-red-600">DRAFT</span>
+                  )}
                 </h2>
                 <p className="font-mono text-xs">{paste.language}</p>
 
