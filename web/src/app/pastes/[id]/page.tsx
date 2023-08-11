@@ -63,7 +63,10 @@ export default async function Paste({ params }: { params: { id: string } }) {
     throw new Error(pasteError);
   }
 
-  if (pasteData.draft && pasteData.author !== session?.user.id) {
+  if (
+    pasteData.draft &&
+    (pasteData.author as unknown as Profile).id !== session?.user.id
+  ) {
     throw new Error("Paste not found");
   }
 
