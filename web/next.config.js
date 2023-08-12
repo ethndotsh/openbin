@@ -6,15 +6,6 @@ const nextConfig = {
   images: {
     domains: ["avatars.githubusercontent.com", "api.dicebear.com"],
   },
-  async redirects() {
-    return [
-      {
-        source: '/pastes/xxxxxxxx',
-        destination: '/',
-        permanent: true,
-      },
-    ]
-  },
-}
+};
 
 module.exports = nextConfig;
