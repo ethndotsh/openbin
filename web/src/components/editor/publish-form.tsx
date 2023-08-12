@@ -35,6 +35,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { toast } from "sonner";
 
 const publishSchema = z.object({
   title: z
@@ -106,14 +107,21 @@ export function PublishForm({
       }
     }
 
-    mutate({
-      ...values,
-      value: pasteValue,
-    }).then(() => {
-      if (localStorage) {
-        localStorage.removeItem("editor-data");
-      }
-    });
+    if (
+      pasteValue &&
+      !(Buffer.byteLength(pasteValue, "utf8") / Math.pow(1024, 2) > 1)
+    ) {
+      mutate({
+        ...values,
+        value: pasteValue,
+      }).then(() => {
+        if (localStorage) {
+          localStorage.removeItem("editor-data");
+        }
+      });
+    } else {
+      toast.error("Paste is too large to publish");
+    }
   }
 
   return (
