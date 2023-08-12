@@ -45,3 +45,16 @@ openbin upload [file.extension]
 `--expire [value]`\
 `--editor [value]`\
 `--draft`
+
+## Manage your pastes
+The CLI lets you do everything just like with the web editor, and that means you can manage your pastes too!
+
+### Get a list of the pastes you've created
+```
+openbin pastes
+```
+### Delete a paste
+```
+openbin delete [uuid]
+```
+> The UUID is located directly after the pastes/.
