@@ -8,7 +8,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Openbin",
-  description: "Openbin is a free and open source pastebin alternative.",
+  description:
+    "Openbin is a free and open source pastebin alternative built with command-line users and developers in mind.",
   icons: {
     icon: [
       {
@@ -23,7 +24,8 @@ export const metadata: Metadata = {
 
   openGraph: {
     title: "Openbin",
-    description: "Openbin is a free and open source pastebin alternative.",
+    description:
+      "Openbin is a free and open source pastebin alternative built with command-line users and developers in mind.",
     url: "https://openbin.dev/",
     images: [
       {
