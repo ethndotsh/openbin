@@ -13,7 +13,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-const VERSION = "1.0.5"
+const VERSION = "1.0.6"
 
 type GitHubResponse struct {
 	TagName string `json:"tag_name"`
