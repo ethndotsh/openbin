@@ -12,7 +12,7 @@ const Profile = async ({ params }: { params: { id: string } }) => {
   const profile = await getProfile(params.id);
 
   if (!profile) {
-    return redirect("/");
+    throw new Error("Profile not found");
   }
 
   const pastes = await getPastes(profile?.id);
