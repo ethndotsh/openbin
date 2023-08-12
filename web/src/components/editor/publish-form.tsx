@@ -91,7 +91,21 @@ export function PublishForm({
   });
   const { mutate, data, isLoading, error } = useZact(publish);
 
-  function onSubmit(values: z.infer<typeof publishSchema>) {
+  async function onSubmit(values: z.infer<typeof publishSchema>) {
+    if ((globalThis as any).umami) {
+      await (globalThis as any).umami.track("paste-created", {
+        language: values.language,
+        draft: values.draft,
+        remix: !!values.remixOf,
+      });
+
+      if (values.remixOf) {
+        await (globalThis as any).umami.track("paste-remix", {
+          language: values.language,
+        });
+      }
+    }
+
     mutate({
       ...values,
       value: pasteValue,

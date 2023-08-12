@@ -24,6 +24,13 @@ export function LoginComponent({
   async function handleOAuthLogin(provider: Provider) {
     if (beforeLogin) beforeLogin();
 
+    if ((globalThis as any).umami) {
+      console.log("umami login");
+      await (globalThis as any).umami.track("login-oauth", {
+        provider,
+      });
+    }
+
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
@@ -157,13 +164,13 @@ export function LoginComponent({
           {/* <div className="grid grid-cols-3">
             <Button
               variant="outline"
-              className="rounded-r-none border-r-0"
+              className="border-r-0 rounded-r-none"
               onClick={() => handleOAuthLogin("github")}
             >
               <svg
                 role="img"
                 viewBox="0 0 24 24"
-                className="mr-2 h-4 w-4 shrink-0"
+                className="w-4 h-4 mr-2 shrink-0"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="#000"
               >
@@ -178,7 +185,7 @@ export function LoginComponent({
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="mr-2 h-4 w-4 shrink-0"
+                className="w-4 h-4 mr-2 shrink-0"
                 viewBox="0 0 586 559"
               >
                 <path
@@ -210,13 +217,13 @@ export function LoginComponent({
             </Button>
             <Button
               variant="outline"
-              className="rounded-l-none border-l-0"
+              className="border-l-0 rounded-l-none"
               onClick={() => handleOAuthLogin("bitbucket")}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 62.4 62.4"
-                className="mr-2 h-4 w-4 shrink-0"
+                className="w-4 h-4 mr-2 shrink-0"
               >
                 <defs>
                   <linearGradient
