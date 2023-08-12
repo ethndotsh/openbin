@@ -32,8 +32,8 @@ type UploadOptions struct {
 
 var UploadCommand = cli.Command{
 	Name:      "upload",
-	Aliases:   []string{"u"},
-	Usage:     "Upload a file to OpenBin.",
+	Aliases:   []string{"u", "up"},
+	Usage:     "Upload a file to Openbin.",
 	ArgsUsage: "[FILE]",
 	Flags: []cli.Flag{
 		&cli.StringFlag{
@@ -226,7 +226,7 @@ func UploadFile(path string, opts UploadOptions) {
 	user, err := supabase.Auth.User(ctx, settings.AccessToken)
 
 	if err != nil {
-		cli.Exit("Could not get the user. Try signing in with `openbin login`.", 1)
+		cli.Exit("You don't seem to be signed in. Try running `openbin login` to sign in.", 1)
 	}
 
 	supabase.DB.AddHeader("Authorization", fmt.Sprintf("Bearer %s", settings.AccessToken))

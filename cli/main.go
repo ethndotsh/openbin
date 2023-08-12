@@ -24,7 +24,7 @@ func Run() {
 		Name:                 "openbin",
 		HelpName:             "openbin",
 		EnableBashCompletion: true,
-		Description:          "A CLI tool for OpenBin, a free and open-source pastebin alternative.",
+		Description:          "A CLI tool for Openbin, a free and open-source pastebin alternative built primarily for command-line warriors.",
 		Flags: []cli.Flag{
 			&cli.BoolFlag{
 				Name: "version",
