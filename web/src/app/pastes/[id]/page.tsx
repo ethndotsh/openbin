@@ -54,14 +54,9 @@ export default async function Paste({ params }: { params: { id: string } }) {
     .eq("id", id)
     .single();
 
-  if (!pasteData) {
+  if (!pasteData || pasteError) {
     throw new Error("Paste not found");
   }
-
-  if (pasteError) {
-    throw new Error(pasteError);
-  }
-
   const { data: fileData, error: fileError } = await supabase.storage
     .from("pastes")
     .download(pasteData.file);
