@@ -37,7 +37,7 @@ Also, if you want to logout of your account, all you have to do is `openbin logo
 
 Command to enter:
 ```
-openbin upload index.ts
+openbin upload [file.extension]
 ```
 
 Answer you receive:
