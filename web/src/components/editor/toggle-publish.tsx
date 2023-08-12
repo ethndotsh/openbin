@@ -7,7 +7,13 @@ import { toggleDraft } from "./actions";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-export function PublishUnpublishButton({ paste }: { paste: Paste }) {
+export function PublishUnpublishButton({
+  paste,
+  display,
+}: {
+  paste: Paste;
+  display: boolean;
+}) {
   const { mutate, error, isLoading } = useZact(toggleDraft);
   const router = useRouter();
 
@@ -26,14 +32,16 @@ export function PublishUnpublishButton({ paste }: { paste: Paste }) {
 
   return (
     <>
-      {paste.draft ? (
+      {display && paste.draft ? (
         <Button loading={isLoading} onClick={toggle}>
           Publish
         </Button>
-      ) : (
+      ) : display ? (
         <Button variant="outline" loading={isLoading} onClick={toggle}>
           Unpublish
         </Button>
+      ) : (
+        <></>
       )}
     </>
   );

@@ -135,7 +135,13 @@ export default async function Paste({ params }: { params: { id: string } }) {
           </div>
 
           <div className="col-span-1 flex items-center justify-end space-x-2">
-            <PublishUnpublishButton paste={pasteData} />
+            <PublishUnpublishButton
+              paste={pasteData}
+              display={
+                (pasteData.author as unknown as Profile).id ===
+                session?.user?.id
+              }
+            />
             <Link
               href={`/editor?remix=${pasteData.id}`}
               className={buttonVariants({ variant: "outline" })}
