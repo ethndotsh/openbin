@@ -15,6 +15,7 @@ import { Database } from "types/supabase";
 import { Disc3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PublishUnpublishButton } from "@/components/editor/toggle-publish";
+import { validate } from "uuid";
 
 type Props = {
   params: { id: string };
@@ -56,6 +57,10 @@ export default async function Paste({ params }: { params: { id: string } }) {
   const { id } = params;
   const supabase = createServerComponentClient();
   const session = await getSession();
+
+  if (!validate(id)) {
+    throw new Error("Paste not found");
+  }
 
   const { data: pasteData, error: pasteError } = await supabase
     .from("pastes")
