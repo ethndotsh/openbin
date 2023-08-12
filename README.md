@@ -25,3 +25,15 @@ openbin login
 ```
 Also, if you want to logout of your account, all you have to do is `openbin logout` - it's that simple!
 > Please note that you can't upload without being logged in, so this step is necessary.
+
+## Upload a file to Openbin
+
+Command to enter:
+```
+openbin upload index.ts
+```
+
+Answer you receive:
+```
+placeholder
+```
