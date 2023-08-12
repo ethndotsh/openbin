@@ -7,8 +7,14 @@ const nextConfig = {
     domains: ["avatars.githubusercontent.com", "api.dicebear.com"],
   },
   async redirects() {
-    return [];
+    return [
+      {
+        source: '/pastes/xxxxxxxx',
+        destination: '/',
+        permanent: true,
+      },
+    ]
   },
-};
+}
 
 module.exports = nextConfig;
