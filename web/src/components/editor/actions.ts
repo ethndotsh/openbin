@@ -66,7 +66,10 @@ export const publish = zact(
     .insert({
       author: userData.user.id,
       title: input.title,
-      description: input.description,
+      description:
+        input.description && input.description.length
+          ? input.description
+          : undefined,
       language: input.language,
       draft: input.draft,
       expires_at: input.expiresAt ? input.expiresAt.toDateString() : null,
