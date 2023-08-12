@@ -61,7 +61,7 @@ export function PasteViewer({
           },
         }}
         language={paste.language || "plaintext"}
-        defaultLanguage="plaintext"
+        defaultLanguage={paste.language || "plaintext"}
         defaultValue={file}
       />
     </div>

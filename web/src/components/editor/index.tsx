@@ -42,6 +42,10 @@ export function MonacoEditor({
         theme as monacoTypes.editor.IStandaloneThemeData,
       );
       monaco.editor.setTheme("gh-light");
+      monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+        noSemanticValidation: true,
+        noSyntaxValidation: true,
+      });
 
       if (localStorage && searchParams.get("publish")) {
         const previousData = localStorage.getItem("editor-data");
