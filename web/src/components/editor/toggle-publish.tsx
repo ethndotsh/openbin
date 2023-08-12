@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useZact } from "zact/client";
 import { toggleDraft } from "./actions";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export function PublishUnpublishButton({ paste }: { paste: Paste }) {
   const { mutate, error, isLoading } = useZact(toggleDraft);
@@ -16,6 +17,10 @@ export function PublishUnpublishButton({ paste }: { paste: Paste }) {
       action: paste.draft ? "publish" : "unpublish",
     }).then(() => {
       router.refresh();
+
+      if (error) {
+        toast.error(error.message);
+      }
     });
   }
 

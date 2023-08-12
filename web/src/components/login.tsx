@@ -6,6 +6,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Provider } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export function LoginComponent({
   redirectTo,
@@ -31,6 +32,10 @@ export function LoginComponent({
           : `${location.origin}/auth/callback`,
       },
     });
+
+    if (error) {
+      toast.error(error.message);
+    }
   }
 
   async function handleEmailLogin() {
