@@ -47,9 +47,9 @@ export default function DeletePasteConfirmation({ paste }: { paste: Paste }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="w-full bg-red-500 text-white hover:bg-red-500/90 md:w-auto">
+        <button className="flex h-10 w-10 items-center justify-center rounded-md bg-red-500 text-white hover:bg-red-500/90">
           <Trash2 className="h-4 w-4" />
-        </Button>
+        </button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
