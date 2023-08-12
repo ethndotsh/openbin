@@ -1,6 +1,6 @@
 {
   "name": "openbin",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Pastebin clone that takes notes & code sharing to the next level.",
   "scripts": {
     "install": "go install github.com/ethndotsh/openbin@latest",
