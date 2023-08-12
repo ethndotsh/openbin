@@ -42,5 +42,6 @@ openbin upload index.ts
 
 Answer you receive:
 ```
-placeholder
+https://openbin.dev/pastes/xxxxxxxx
+Uploaded the file! 🎉
 ```
