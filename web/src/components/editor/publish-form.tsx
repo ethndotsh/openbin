@@ -168,6 +168,7 @@ export function PublishForm({
                           {languages.map((language) => (
                             <CommandItem
                               key={language.value}
+                              value={language.value}
                               onSelect={(currentValue) => {
                                 field.onChange(currentValue);
                                 setLanguageSelectOpen(false);
