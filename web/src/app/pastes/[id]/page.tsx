@@ -12,6 +12,7 @@ import { Metadata } from "next";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { Database } from "types/supabase";
+import { validate } from "uuid";
 
 type Props = {
   params: { id: string };
@@ -47,6 +48,10 @@ export default async function Paste({ params }: { params: { id: string } }) {
   const { id } = params;
   const supabase = createServerComponentClient();
   const session = await getSession();
+
+  if (!validate(id)) {
+    throw new Error("Paste not found");
+  }
 
   const { data: pasteData, error: pasteError } = await supabase
     .from("pastes")
