@@ -16,6 +16,7 @@ import { Disc3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PublishUnpublishButton } from "@/components/editor/toggle-publish";
 import { validate } from "uuid";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: { id: string };
@@ -59,7 +60,7 @@ export default async function Paste({ params }: { params: { id: string } }) {
   const session = await getSession();
 
   if (!validate(id)) {
-    throw new Error("Paste not found");
+    notFound();
   }
 
   const { data: pasteData, error: pasteError } = await supabase
@@ -69,7 +70,7 @@ export default async function Paste({ params }: { params: { id: string } }) {
     .single();
 
   if (!pasteData || pasteError) {
-    throw new Error("Paste not found");
+    notFound();
   }
 
   if (pasteError) {
@@ -80,7 +81,7 @@ export default async function Paste({ params }: { params: { id: string } }) {
     pasteData.draft &&
     (pasteData.author as unknown as Profile).id !== session?.user.id
   ) {
-    throw new Error("Paste not found");
+    notFound();
   }
 
   const { data: fileData, error: fileError } = await supabase.storage

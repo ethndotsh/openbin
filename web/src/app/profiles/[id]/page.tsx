@@ -26,6 +26,8 @@ type Props = {
   params: { id: string };
 };
 
+import { notFound } from "next/navigation";
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // read route params
   const id = params.id;
@@ -44,7 +46,7 @@ const Profile = async ({ params }: { params: { id: string } }) => {
   const profile = await getProfile(params.id);
 
   if (!profile) {
-    throw new Error("Profile not found");
+    notFound();
   }
 
   let pastes: Paste[] | null;

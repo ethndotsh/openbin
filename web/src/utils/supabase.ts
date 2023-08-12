@@ -32,7 +32,6 @@ export async function getProfile(id?: string) {
     if (error) throw error;
     return profile;
   } catch (error) {
-    console.error("Error:", error);
     return null;
   }
 }
