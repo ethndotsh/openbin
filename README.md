@@ -45,3 +45,15 @@ Answer you receive:
 https://openbin.dev/pastes/xxxxxxxx
 Uploaded the file! 🎉
 ```
+
+## Manage your pastes
+u
+
+### Get a list of the pastes you've created
+```
+openbin pastes
+```
+### Delete a paste
+```
+openbin delete [uuid]
+```
