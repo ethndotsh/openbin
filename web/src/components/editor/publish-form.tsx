@@ -13,7 +13,7 @@ import { ChevronsUpDown, Check, CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { Calendar } from "../ui/calendar";
 import { useZact } from "zact/client";
-import { publish } from "./publish";
+import { publish } from "./actions";
 import {
   Form,
   FormControl,

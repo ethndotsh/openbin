@@ -82,3 +82,33 @@ export const publish = zact(
 
   return redirect(`/pastes/${pasteData[0]?.id}`);
 });
+
+export const toggleDraft = zact(
+  z.object({
+    id: z.string(),
+    action: z.enum(["publish", "unpublish"]),
+  }),
+)(async (input) => {
+  const supabase = createServerActionClient<Database>({ cookies });
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+
+  if (!userData || userError) {
+    throw new Error("Not logged in");
+  }
+
+  const { data: pasteData, error: pasteError } = await supabase
+    .from("pastes")
+    .update({
+      draft: input.action === "publish" ? false : true,
+    })
+    .eq("id", input.id)
+    .eq("author", userData.user.id)
+    .select("draft")
+    .single();
+
+  if (pasteError) {
+    throw new Error("Failed toggle draft status");
+  }
+
+  return pasteData?.draft;
+});

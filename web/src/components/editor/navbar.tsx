@@ -8,7 +8,7 @@ import { ChevronsUpDown, Check } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/utils/cn";
 import { LoginComponent } from "../login";
-import { publish } from "./publish";
+import { publish } from "./actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Avatar } from "../avatar";

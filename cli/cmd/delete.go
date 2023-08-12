@@ -22,7 +22,7 @@ var DeleteCommand = cli.Command{
 		user, err := supabase.Auth.User(ctx, settings.AccessToken)
 
 		if err != nil {
-			cli.Exit("Could not get the user. Try signing in with `openbin login`.", 1)
+			cli.Exit("You don't seem to be signed in. Try running `openbin login` to sign in.", 1)
 			return err
 		}
 

@@ -8,10 +8,26 @@ import Link from "next/link";
 import bg from "@/assets/bg.svg";
 import grid from "@/assets/grid.svg";
 import Image from "next/image";
+import { Avatar } from "@/components/avatar";
+import { getSession, getProfile } from "@/utils/supabase";
+import { Profile } from "types/types";
 
-export default function Home() {
+export default async function Home() {
+  const session = await getSession();
+
+  let profile: Profile | null = null;
+
+  if (session && session.user) {
+    profile = await getProfile(session.user.id);
+  }
+
   return (
     <div className="relative w-screen md:h-screen md:overflow-y-hidden md:overscroll-y-none">
+      {session && profile && (
+        <div className="absolute right-0 top-0 z-20 flex w-full items-center justify-end pr-6 pt-6">
+          <Avatar size="md" profile={profile} dropdown />
+        </div>
+      )}
       <main className="grid h-full w-full px-5 sm:mx-auto sm:max-w-2xl md:max-w-4xl md:grid-cols-2 md:gap-6 lg:max-w-5xl xl:max-w-6xl ">
         <div className="absolute left-0 top-0 z-0 flex h-full w-full items-center justify-center">
           <Image
