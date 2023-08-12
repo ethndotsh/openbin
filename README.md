@@ -5,6 +5,7 @@ Openbin is a Pastebin clone that takes notes & code sharing to the next level, b
 # Documentation
 
 ## Installation
+Without guessing, this is the most important step in using CLI. You can install it on any operating system, whether Windows, Linux or macOS.
 
 ### Windows (Powershell)
 ```powershell
