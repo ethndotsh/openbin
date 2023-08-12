@@ -95,8 +95,8 @@ export default async function Paste({ params }: { params: { id: string } }) {
   return (
     <div className="flex h-screen w-screen flex-col">
       <div className="flex-1">
-        <div className="grid grid-cols-2 px-4 pb-2 pt-4 md:px-8">
-          <div className="col-span-1">
+        <div className="grid px-4 pb-2 pt-4 md:grid-cols-2 md:px-8">
+          <div>
             <p className="text-sm font-medium text-gray-500">
               <Link
                 className="flex items-center gap-1 hover:underline"
@@ -134,7 +134,7 @@ export default async function Paste({ params }: { params: { id: string } }) {
             <p className="text-sm text-gray-500">{pasteData.description}</p>
           </div>
 
-          <div className="col-span-1 flex items-center justify-end space-x-2">
+          <div className="flex items-center justify-end space-x-0 space-y-2 md:space-x-2 md:space-y-0">
             <PublishUnpublishButton
               paste={pasteData}
               display={
@@ -142,12 +142,11 @@ export default async function Paste({ params }: { params: { id: string } }) {
                 session?.user?.id
               }
             />
-            <Link
-              href={`/editor?remix=${pasteData.id}`}
-              className={buttonVariants({ variant: "outline" })}
-            >
-              <Disc3 className="mr-2 h-4 w-4" />
-              Remix
+            <Link href={`/editor?remix=${pasteData.id}`}>
+              <Button variant="outline" className="w-full md:w-auto">
+                <Disc3 className="mr-2 h-4 w-4" />
+                Remix
+              </Button>
             </Link>
 
             {(pasteData.author as unknown as Profile).id ===

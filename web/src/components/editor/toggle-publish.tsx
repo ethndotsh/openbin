@@ -33,11 +33,20 @@ export function PublishUnpublishButton({
   return (
     <>
       {display && paste.draft ? (
-        <Button loading={isLoading} onClick={toggle}>
+        <Button
+          loading={isLoading}
+          onClick={toggle}
+          className="w-full md:w-auto"
+        >
           Publish
         </Button>
       ) : display ? (
-        <Button variant="outline" loading={isLoading} onClick={toggle}>
+        <Button
+          variant="outline"
+          loading={isLoading}
+          onClick={toggle}
+          className="w-full md:w-auto"
+        >
           Unpublish
         </Button>
       ) : (
