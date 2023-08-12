@@ -24,4 +24,4 @@ To get your pastes into your account, you should login to your Openbin account b
 openbin login
 ```
 Also, if you want to logout of your account, all you have to do is `openbin logout` - it's that simple!
-> Please note that you can't upload without being logged in, so this step is necessary to ensure a smooth functioning.
+> Please note that you can't upload without being logged in, so this step is necessary.
