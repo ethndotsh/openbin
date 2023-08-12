@@ -172,7 +172,7 @@ const Profile = async ({ params }: { params: { id: string } }) => {
                 <Separator className="my-2 w-full" />
 
                 <p className="text-sm">
-                  {(paste.description && paste.description.length) ??
+                  {(paste.description && !!paste.description.length) ??
                     "No description"}
                 </p>
               </Link>
