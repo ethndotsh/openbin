@@ -63,7 +63,7 @@ export default async function Paste({ params }: { params: { id: string } }) {
     .eq("id", id)
     .single();
 
-  if (!pasteData) {
+  if (!pasteData || pasteError) {
     throw new Error("Paste not found");
   }
 
