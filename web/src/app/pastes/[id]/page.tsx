@@ -13,6 +13,8 @@ import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { Database } from "types/supabase";
 import { Disc3 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { PublishUnpublishButton } from "@/components/editor/toggle-publish";
 
 type Props = {
   params: { id: string };
@@ -111,12 +113,17 @@ export default async function Paste({ params }: { params: { id: string } }) {
                   "Untitled User"}
               </Link>
             </p>
-            <h1 className="flex items-end gap-2 text-3xl font-bold">
+            <h1 className="flex items-center gap-2 text-3xl font-bold">
               {pasteData.title || "Untitled Paste"}
+            </h1>
+            <p>
               <span className="font-mono text-sm font-normal text-gray-500">
                 {pasteData.language}
+              </span>{" "}
+              <span className="font-mono text-sm font-normal text-red-600">
+                {pasteData.draft && "(draft)"}
               </span>
-            </h1>
+            </p>
             <p className="text-sm text-gray-500">
               {pasteData.created_at && (
                 <time className="text-gray-500">
@@ -128,11 +135,7 @@ export default async function Paste({ params }: { params: { id: string } }) {
           </div>
 
           <div className="col-span-1 flex items-center justify-end space-x-2">
-            {(pasteData.author as unknown as Profile).id ===
-              session?.user?.id && (
-              <DeletePasteConfirmation paste={pasteData} />
-            )}
-
+            <PublishUnpublishButton paste={pasteData} />
             <Link
               href={`/editor?remix=${pasteData.id}`}
               className={buttonVariants({ variant: "outline" })}
@@ -140,6 +143,11 @@ export default async function Paste({ params }: { params: { id: string } }) {
               <Disc3 className="mr-2 h-4 w-4" />
               Remix
             </Link>
+
+            {(pasteData.author as unknown as Profile).id ===
+              session?.user?.id && (
+              <DeletePasteConfirmation paste={pasteData} />
+            )}
           </div>
         </div>
         <div className="border-b" />
