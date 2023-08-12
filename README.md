@@ -16,5 +16,12 @@ irm https://openbin.dev/install.ps1 | iex
 curl -fsSL https://openbin.dev/install.sh | sh
 ```
 
-Once you've installed Openbin on your machine, you'll be ready to begin your adventure with the CLI. 🎉
+To make sure that Openbin is installed, enter `openbin --version` in your terminal. If it gives you the version, this means that Openbin has been successfully installed and you're ready to start using it! 🎉
 
+## Login to your account
+To get your pastes into your account, you should login to your Openbin account by entering this command:
+```
+openbin login
+```
+Also, if you want to logout of your account, all you have to do is `openbin logout` - it's that simple!
+> Please note that you can't upload without being logged in, so this step is necessary to ensure a smooth functioning.
