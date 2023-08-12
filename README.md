@@ -35,25 +35,13 @@ Also, if you want to logout of your account, all you have to do is `openbin logo
 
 ## Upload a file to Openbin
 
-Command to enter:
 ```
 openbin upload [file.extension]
 ```
-
-Answer you receive:
-```
-https://openbin.dev/pastes/xxxxxxxx
-Uploaded the file! 🎉
-```
-
-## Manage your pastes
-u
-
-### Get a list of the pastes you've created
-```
-openbin pastes
-```
-### Delete a paste
-```
-openbin delete [uuid]
-```
+### Options:
+`--title [value]`\
+`--description [value]`\
+`--language [value]`\
+`--expire [value]`\
+`--editor [value]`\
+`--draft`
