@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"net"
 	"net/http"
+	"os/exec"
+	"runtime"
 	"time"
 
 	sb "github.com/jackmerrill/supabase-go"
@@ -35,17 +37,9 @@ var LoginCommand = cli.Command{
 
 		// Check if port 8089 is available
 		// TODO: Handle with greater grace
-		conn, err := net.DialTimeout("tcp", "http://localhost:8089", time.Second)
-		if err != nil { return err }
-		if conn == nil {
-			conn.Close()
-			port = 50000
-			conn, err = net.DialTimeout("tcp", "http://localhost:50000", time.Second)
-			if err != nil { return err }
-			if conn == nil {
-				conn.Close()
-				return errors.New("Could not obtain a port to complete authentication process.")
-			}
+		conn, err := net.DialTimeout("tcp", "localhost:8089", time.Second)
+		if err == nil || conn != nil {
+			return errors.New("Could not obtain a port to complete authentication process.")
 		}
 
 		codeVerifier := ""
@@ -55,7 +49,6 @@ var LoginCommand = cli.Command{
 				RedirectTo: fmt.Sprintf("http://localhost:%d/auth-callback", port),
 				FlowType:   sb.PKCE,
 			})
-
 			if err != nil {
 				return err
 			}
@@ -83,6 +76,15 @@ var LoginCommand = cli.Command{
 			codeVerifier = d.CodeVerifier
 
 			fmt.Printf("Please go to the following URL to login: %s\n", d.URL)
+			switch runtime.GOOS {
+			case "linux":
+				err = exec.Command("xdg-open", d.URL).Start()
+			case "windows":
+				err = exec.Command("rundll32", "url.dll,FileProtocolHandler", d.URL).Start()
+			case "darwin":
+				err = exec.Command("open", d.URL).Start()
+			if err != nil {	return err }
+			}
 		}
 
 		stopServer := make(chan bool)

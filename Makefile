@@ -5,7 +5,7 @@ SUPABASE_KEY= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJl
 build-cli:
 	mkdir -p build/
 	go build \
-	-ldflags "-X main.SUPABASE_URL=$(SUPABASE_URL) -X main.SUPABASE_KEY=$(SUPABASE_KEY)" \
+	-ldflags "-X 'github.com/ethndotsh/openbin/cli/supabase.SUPABASE_URL=$(SUPABASE_URL)' -X 'github.com/ethndotsh/openbin/cli/supabase.SUPABASE_KEY=$(SUPABASE_KEY)'" \
 	-trimpath \
 	-tags=netgo \
 	-o="build/openbin-$(GOOS)-$(GOARCH)"
