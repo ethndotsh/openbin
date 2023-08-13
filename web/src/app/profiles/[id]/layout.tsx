@@ -1,6 +1,5 @@
 import { Navbar } from "@/components/navbar";
 import {
-  createServerComponentClient,
   getProfile,
   getSession,
 } from "@/utils/supabase";

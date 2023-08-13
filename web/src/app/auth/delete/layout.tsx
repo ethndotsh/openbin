@@ -1,9 +1,5 @@
 import { Navbar } from "@/components/navbar";
-import {
-  createServerComponentClient,
-  getProfile,
-  getSession,
-} from "@/utils/supabase";
+import { getProfile, getSession } from "@/utils/supabase";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 

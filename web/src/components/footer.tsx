@@ -2,9 +2,8 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <div className="absolute bottom-0 left-0 right-0 z-50 ml-3 mr-3 text-center text-white md:bottom-4 md:mx-auto">
-      {/* no point in having this if the pages dont exist */}
-      {/* <p className="text-sm font-medium text-neutral-600">
+    <div className="absolute bottom-0 left-0 right-0 z-50 m-3 text-center text-white md:bottom-4 md:mx-auto">
+      {/*<p className="text-sm font-medium text-neutral-600">
         <Link href="/privacy-policy">
           <span className="font-bold">Privacy Policy</span>
         </Link>{" "}
@@ -16,7 +15,7 @@ const Footer = () => {
         <Link href="https://github.com/ethndotsh/openbin" target="_blank">
           <span className="font-bold">Open Source</span>
         </Link>
-      </p> */}
+      </p>*/}
       <p className="text-sm font-medium text-neutral-600">
         Made with 💚 by{" "}
         <Link href="https://github.com/ethndotsh" target="_blank">

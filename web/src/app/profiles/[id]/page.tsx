@@ -1,32 +1,28 @@
-import { Calendar, Hash, Info, PersonStandingIcon } from "lucide-react";
+import { Calendar, PersonStandingIcon, Cog, Trash2, PlusCircle, ClipboardX } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Metadata } from "next";
 import Image from "next/image";
 import {
-  createServerComponentClient,
   getPastes,
   getProfile,
   getPublicPastes,
   getSession,
 } from "@/utils/supabase";
 import Link from "next/link";
-import { cn } from "@/utils/cn";
-import { redirect } from "next/navigation";
 import { Paste } from "types/types";
-import { Cog, Trash2, PlusCircle, ClipboardX } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: { id: string };
 };
 
-import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // read route params
@@ -160,7 +156,7 @@ const Profile = async ({ params }: { params: { id: string } }) => {
                 href={`/pastes/${paste.id}`}
               >
                 <h2 className="text-md font-semibold ">
-                  {paste.title && paste.title.length
+                  {paste.title?.length
                     ? paste.title
                     : "Untitled Paste"}
                   {paste.draft && (

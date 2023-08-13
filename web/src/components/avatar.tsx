@@ -35,7 +35,7 @@ export function Avatar({
   size?: string;
 }) {
   const gradient = generateGradient(profile?.id ?? "");
-  const { push, refresh } = useRouter();
+  const { refresh } = useRouter();
 
   const sizes = {
     xxs: "h-4 w-4",

@@ -5,7 +5,6 @@ import {
 } from "@/utils/supabase";
 import { MonacoEditor } from "@/components/editor";
 import { Paste } from "types/types";
-import { redirect } from "next/navigation";
 
 export default async function Page({
   searchParams,

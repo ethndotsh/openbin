@@ -42,7 +42,7 @@ fi
 
 openbin_uri="https://github.com/ethndotsh/openbin/releases/latest/download/openbin-${target}-${arch}${ext}"
 
-bin_dir="${HOME}/.openbin/bin"
+bin_dir="${HOME}/.local/bin"
 
 if [ ! -d "$bin_dir" ]; then
     mkdir -p "$bin_dir"
@@ -62,7 +62,7 @@ else
     /bin/zsh) shell_profile=".zshrc" ;;
     *) shell_profile=".bashrc" ;;
     esac
-    echo "Adding openbin to $HOME/$shell_profile"
+    echo "Adding $bin_dir to PATH"
     echo "" >>"$HOME/$shell_profile"
     echo "# openbin" >>"$HOME/$shell_profile"
     echo "export PATH=\"$bin_dir:\$PATH\"" >>"$HOME/$shell_profile"
@@ -74,10 +74,8 @@ if [ "$1" != "--no-alias" ]; then
     /bin/zsh) shell_profile=".zshrc" ;;
     *) shell_profile=".bashrc" ;;
     esac
-    echo "Adding openbin alias to $HOME/$shell_profile"
-    echo "" >>"$HOME/$shell_profile"
-    echo "# openbin alias" >>"$HOME/$shell_profile"
-    echo "alias ob=openbin" >>"$HOME/$shell_profile"
+    echo "Aliasing openbin alias to ob"
+    ln -s "$bin_dir/openbin${ext}" "$bin_dir/ob"
 fi
 
 echo "🎉 Openbin Installed!"

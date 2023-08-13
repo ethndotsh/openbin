@@ -1,10 +1,8 @@
 "use client";
 
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Provider } from "@supabase/supabase-js";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 

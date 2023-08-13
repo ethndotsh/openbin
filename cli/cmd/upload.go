@@ -93,11 +93,7 @@ var UploadCommand = cli.Command{
 	Action: func(cCtx *cli.Context) error {
 		user, err := supabase.Auth.User(ctx, settings.AccessToken)
 
-		if err != nil {
-			cli.Exit("You don't seem to be signed in. Try running `openbin login` to sign in.", 1)
-		}
-
-		if user == nil {
+		if err != nil || user == nil {
 			cli.Exit("You don't seem to be signed in. Try running `openbin login` to sign in.", 1)
 		}
 
@@ -243,11 +239,7 @@ func UploadFile(path string, opts UploadOptions) {
 	user, err := supabase.Auth.User(ctx, settings.AccessToken)
 
 	if err != nil {
-		cli.Exit("You don't seem to be signed in. Try running `openbin login` to sign in.", 1)
-	}
-
-	if user == nil {
-		cli.Exit("You don't seem to be signed in. Try running `openbin login` to sign in.", 1)
+		cli.Exit("There was an issue authenticating. Try running `openbin login` to re-authenticate.", 1)
 	}
 
 	supabase.DB.AddHeader("Authorization", fmt.Sprintf("Bearer %s", settings.AccessToken))

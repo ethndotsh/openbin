@@ -11,6 +11,9 @@ type FileType struct {
 	Extensions []string `json:"extensions"`
 }
 
+// TODO: Cache AcceptedTypes locally and
+//       update local AcceptedTypes based
+//       on /web/assets/languages.json
 var AcceptedTypes = []FileType{
 	{
 		Name:       "Plain Text",

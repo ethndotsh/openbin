@@ -5,12 +5,11 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import theme from "@/assets/gh-light.json";
 import type monacoTypes from "monaco-editor";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { LoadingSpinner } from "../loading-spinner";
 import { Session } from "@supabase/supabase-js";
 import { EditorNavbar } from "./navbar";
 import { Paste, Profile } from "types/types";
-import { getOS } from "@/utils/os";
 import { useHotkeys } from "react-hotkeys-hook";
 
 const Monaco = dynamic(() => import("@monaco-editor/react"), { ssr: false });
@@ -33,7 +32,6 @@ export function MonacoEditor({
     remixContent ?? "Welcome to Openbin!",
   );
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   useEffect(() => {
     if (monaco) {

@@ -1,6 +1,5 @@
 "use client";
-import { FormEvent, useState } from "react";
-import { LoginComponent } from "../login";
+import { useState } from "react";
 import { Button } from "../ui/button";
 import {
   Dialog,
@@ -11,7 +10,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { PublishForm } from "./publish-form";
 import { Paste } from "types/types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "types/supabase";

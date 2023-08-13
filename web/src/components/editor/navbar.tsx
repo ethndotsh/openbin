@@ -2,16 +2,11 @@
 
 import { useState } from "react";
 import languages from "@/assets/languages.json";
-import { Logo } from "../logo";
 import { Button } from "@/components/ui/button";
 import { ChevronsUpDown, Check } from "lucide-react";
-import Link from "next/link";
 import { cn } from "@/utils/cn";
 import { LoginComponent } from "../login";
-import { publish } from "./actions";
-import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Avatar } from "../avatar";
 import { Navbar } from "../navbar";
 
 import { PublishForm } from "./publish-form";
@@ -23,7 +18,6 @@ import {
   DialogHeader,
   DialogDescription,
   DialogTitle,
-  DialogFooter,
 } from "@/components/ui/dialog";
 
 import {
@@ -39,7 +33,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Session } from "@supabase/supabase-js";
-import { Input } from "../ui/input";
 import { Paste, Profile } from "types/types";
 
 const publishSchema = z.object({

@@ -1,6 +1,5 @@
 "use client";
 
-import { v4 as uuidv4 } from "uuid";
 import React, { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { getOS } from "@/utils/os";
@@ -72,11 +71,13 @@ const Terminal = () => {
     setOs(operatingSystem);
   }, []);
 
+  // TODO: Refactor to reduce complexity
+  //       There are so many nests within nests within nests
   useEffect(() => {
     const typeLine = async (line: Line) => {
-      for (let i = 0; i < line.text.length; i++) {
+      for (let val of line.text) {
         await new Promise((resolve) => setTimeout(resolve, 110));
-        setDisplayText((prev) => prev + line.text[i]);
+        setDisplayText((prev) => prev + val);
       }
       setDisplayText((prev) => prev + "\n");
       if (line.delay) {
@@ -90,7 +91,7 @@ const Terminal = () => {
 
     if (lines && currentLine < lines.length) {
       const line = lines[currentLine];
-      if (line && line.cmd) {
+      if (line?.cmd) {
         setCommandLine(true);
         setDisplayText((prev) => prev + "kiwi ~ $ ");
         typeLine(line);

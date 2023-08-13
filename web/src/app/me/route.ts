@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
 
   const { data } = await supabase.auth.getSession();
 
-  if (data.session && data.session.user) {
+  if (data.session?.user) {
     return redirect(`/profiles/${data.session.user.id}`);
   }
 

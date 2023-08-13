@@ -30,28 +30,28 @@ export function PublishUnpublishButton({
     });
   }
 
-  return (
-    <>
-      {display && paste.draft ? (
-        <Button
-          loading={isLoading}
-          onClick={toggle}
-          className="w-full md:w-auto"
-        >
-          Publish
-        </Button>
-      ) : display ? (
-        <Button
-          variant="outline"
-          loading={isLoading}
-          onClick={toggle}
-          className="w-full md:w-auto"
-        >
-          Unpublish
-        </Button>
-      ) : (
-        <></>
-      )}
-    </>
-  );
+  if (display && paste.draft) {
+    return (
+      <Button
+        loading={isLoading}
+        onClick={toggle}
+        className="w-full md:w-auto"
+      >
+        Publish
+      </Button>
+    );
+  } else if (display) {
+    return (
+      <Button
+        variant="outline"
+        loading={isLoading}
+        onClick={toggle}
+        className="w-full md:w-auto"
+      >
+        Unpublish
+      </Button>
+    );
+  } else {
+    return (<></>);
+  }
 }

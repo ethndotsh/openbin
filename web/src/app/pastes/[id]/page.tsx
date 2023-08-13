@@ -1,19 +1,12 @@
 import { createServerComponentClient, getSession } from "@/utils/supabase";
-import { redirect, useParams } from "next/navigation";
 import { PasteViewer } from "@/components/editor/viewer";
 import { Profile } from "types/types";
 import Link from "next/link";
 import { Avatar } from "@/components/avatar";
-import { Dialog, DialogTitle } from "@/components/ui/dialog";
 import DeletePasteConfirmation from "@/components/editor/delete-paste";
-import { FormEvent } from "react";
-import { buttonVariants } from "@/components/ui/button";
-import { Metadata } from "next";
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { Database } from "types/supabase";
-import { Disc3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Metadata } from "next";
+import { Disc3 } from "lucide-react";
 import { PublishUnpublishButton } from "@/components/editor/toggle-publish";
 import { validate } from "uuid";
 import { notFound } from "next/navigation";
@@ -114,13 +107,13 @@ export default async function Paste({ params }: { params: { id: string } }) {
                   size="xxs"
                   profile={pasteData.author as unknown as Profile}
                 />
-                {((pasteData.author as unknown as Profile).username ||
+                {((pasteData.author as unknown as Profile).username ??
                   (pasteData.author as unknown as Profile).full_name) ??
                   "Untitled User"}
               </Link>
             </p>
             <h1 className="flex items-center gap-2 text-3xl font-bold">
-              {pasteData.title || "Untitled Paste"}
+              {pasteData.title ?? "Untitled Paste"}
             </h1>
             <p>
               <span className="font-mono text-sm font-normal text-gray-500">

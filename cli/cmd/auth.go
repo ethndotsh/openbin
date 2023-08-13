@@ -1,7 +1,9 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
+	"net"
 	"net/http"
 	"time"
 
@@ -29,11 +31,28 @@ var LoginCommand = cli.Command{
 		},
 	},
 	Action: func(cCtx *cli.Context) error {
+		port := 8089
+
+		// Check if port 8089 is available
+		// TODO: Handle with greater grace
+		conn, err := net.DialTimeout("tcp", "http://localhost:8089", time.Second)
+		if err != nil { return err }
+		if conn == nil {
+			conn.Close()
+			port = 50000
+			conn, err = net.DialTimeout("tcp", "http://localhost:50000", time.Second)
+			if err != nil { return err }
+			if conn == nil {
+				conn.Close()
+				return errors.New("Could not obtain a port to complete authentication process.")
+			}
+		}
+
 		codeVerifier := ""
 		if cCtx.String("email") != "" {
 			d, err := supabase.Auth.SignInWithOtp(ctx, sb.OtpSignInOptions{
 				Email:      cCtx.String("email"),
-				RedirectTo: "http://localhost:8089/auth-callback",
+				RedirectTo: fmt.Sprintf("http://localhost:%d/auth-callback", port),
 				FlowType:   sb.PKCE,
 			})
 
@@ -53,7 +72,7 @@ var LoginCommand = cli.Command{
 
 			d, err := supabase.Auth.SignInWithProvider(sb.ProviderSignInOptions{
 				Provider:   provider,
-				RedirectTo: "http://localhost:8089/auth-callback",
+				RedirectTo: fmt.Sprintf("http://localhost:%d/auth-callback", port),
 				FlowType:   sb.PKCE,
 			})
 
@@ -105,7 +124,7 @@ var LoginCommand = cli.Command{
 			stopServer <- true
 		})
 
-		server := &http.Server{Addr: ":8089"}
+		server := &http.Server{Addr: fmt.Sprintf(":%d", port)}
 
 		go func() {
 			if err := server.ListenAndServe(); err != nil {
