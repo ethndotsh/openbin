@@ -12,7 +12,7 @@ Without guessing, this is the most important step in using CLI. You can install 
 
 ### Windows (Powershell)
 ```powershell
-irm https://openbin.dev/install.ps1 | iex
+irm https://www.openbin.dev/install.ps1 | iex
 ```
 
 ### Linux and macOS
