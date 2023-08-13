@@ -92,6 +92,21 @@ export default async function Home() {
                 </Button>
               </Link>
             </div>
+
+            <div className="mt-4">
+              <a
+                href="https://www.producthunt.com/posts/openbin?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-openbin"
+                target="_blank"
+              >
+                <img
+                  src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=409488&theme=light"
+                  alt="Openbin - Code&#0032;and&#0032;notes&#0032;sharing&#0032;built&#0032;for&#0032;command&#0032;line&#0032;warriors&#0046; | Product Hunt"
+                  style={{ width: "250px", height: "54px" }}
+                  width="250"
+                  height="54"
+                />
+              </a>
+            </div>
           </div>
         </section>
         <aside className="z-10 mb-12 flex items-center md:mb-0">
