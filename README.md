@@ -5,6 +5,8 @@ Openbin is a Pastebin clone that takes notes & code sharing to the next level, b
 # Documentation
 The documentation is designed to help or refer you to the Openbin CLI. Occasionally, errors may occur, you may encounter bugs, or you simply have questions or need assistance in using it - if you are in one of these situations, [simply open an issue on the repo](https://github.com/ethndotsh/openbin/issues/new)!
 
+To view the complete list of options not mentioned in the documentation: `openbin up --help`.
+
 ## Installation
 Without guessing, this is the most important step in using CLI. You can install it on any operating system, whether Windows, Linux or macOS.
 
