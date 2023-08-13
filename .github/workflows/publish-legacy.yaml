@@ -5,7 +5,8 @@ on:
     types: [created]
 permissions: read-all
 
-jobs:build:
+jobs:
+  build:
     permissions:
       id-token: write # To sign.
       contents: write # To upload release assets.
