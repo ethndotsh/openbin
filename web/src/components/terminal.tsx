@@ -17,7 +17,7 @@ function getLines(os: string) {
     {
       text: `${
         os === "windows"
-          ? "irm https://www.openbin.dev/install.ps1 | iex"
+          ? "irm https://openbin.dev/install.ps1 | iex"
           : "curl -fsSL https://openbin.dev/install.sh | sh"
       }`,
       cmd: true,
