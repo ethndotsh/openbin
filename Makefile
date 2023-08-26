@@ -11,7 +11,6 @@ build-cli:
 	-o="build/openbin-$(GOOS)-$(GOARCH)"
 
 serve-web:
-	cp install.sh install.ps1 web/public/
 	cd web/; \
 	$(NPM_PACKAGE_MANAGER) install; \
 	$(NPM_PACKAGE_MANAGER) run-script lint; \
