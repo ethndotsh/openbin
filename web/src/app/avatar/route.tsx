@@ -1,4 +1,4 @@
-import { ImageResponse, NextRequest, NextResponse } from "next/server";
+import { ImageResponse, NextRequest } from "next/server";
 import { murmur2 } from "murmurhash2";
 import color from "tinycolor2";
 

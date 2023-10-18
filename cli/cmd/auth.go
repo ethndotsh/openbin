@@ -1,8 +1,12 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
+	"net"
 	"net/http"
+	"os/exec"
+	"runtime"
 	"time"
 
 	sb "github.com/jackmerrill/supabase-go"
@@ -29,14 +33,22 @@ var LoginCommand = cli.Command{
 		},
 	},
 	Action: func(cCtx *cli.Context) error {
+		port := 8089
+
+		// Check if port 8089 is available
+		// TODO: Handle with greater grace
+		conn, err := net.DialTimeout("tcp", "localhost:8089", time.Second)
+		if err == nil || conn != nil {
+			return errors.New("Could not obtain a port to complete authentication process.")
+		}
+
 		codeVerifier := ""
 		if cCtx.String("email") != "" {
 			d, err := supabase.Auth.SignInWithOtp(ctx, sb.OtpSignInOptions{
 				Email:      cCtx.String("email"),
-				RedirectTo: "http://localhost:8089/auth-callback",
+				RedirectTo: fmt.Sprintf("http://localhost:%d/auth-callback", port),
 				FlowType:   sb.PKCE,
 			})
-
 			if err != nil {
 				return err
 			}
@@ -53,7 +65,7 @@ var LoginCommand = cli.Command{
 
 			d, err := supabase.Auth.SignInWithProvider(sb.ProviderSignInOptions{
 				Provider:   provider,
-				RedirectTo: "http://localhost:8089/auth-callback",
+				RedirectTo: fmt.Sprintf("http://localhost:%d/auth-callback", port),
 				FlowType:   sb.PKCE,
 			})
 
@@ -64,6 +76,15 @@ var LoginCommand = cli.Command{
 			codeVerifier = d.CodeVerifier
 
 			fmt.Printf("Please go to the following URL to login: %s\n", d.URL)
+			switch runtime.GOOS {
+			case "linux":
+				err = exec.Command("xdg-open", d.URL).Start()
+			case "windows":
+				err = exec.Command("rundll32", "url.dll,FileProtocolHandler", d.URL).Start()
+			case "darwin":
+				err = exec.Command("open", d.URL).Start()
+			if err != nil {	return err }
+			}
 		}
 
 		stopServer := make(chan bool)
@@ -105,7 +126,7 @@ var LoginCommand = cli.Command{
 			stopServer <- true
 		})
 
-		server := &http.Server{Addr: ":8089"}
+		server := &http.Server{Addr: fmt.Sprintf(":%d", port)}
 
 		go func() {
 			if err := server.ListenAndServe(); err != nil {

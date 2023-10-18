@@ -1,8 +1,4 @@
-import {
-  createRouteHandlerClient,
-  createServerActionClient,
-  createServerComponentClient,
-} from "@supabase/auth-helpers-nextjs";
+import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
 import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
@@ -47,13 +43,8 @@ export async function POST(req: NextRequest) {
       console.error("Error:", error);
       return;
     }
-
-    return NextResponse.redirect(new URL("/", req.url), {
-      status: 302,
-    });
-  } else {
-    return NextResponse.redirect(new URL("/", req.url), {
-      status: 302,
-    });
   }
+  return NextResponse.redirect(new URL("/", req.url), {
+    status: 302,
+  });
 }

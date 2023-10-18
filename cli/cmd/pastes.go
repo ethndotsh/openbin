@@ -47,11 +47,7 @@ var PastesCommand = cli.Command{
 	Action: func(cCtx *cli.Context) error {
 		user, err := supabase.Auth.User(ctx, settings.AccessToken)
 
-		if err != nil {
-			cli.Exit("You don't seem to be signed in. Try running `openbin login` to sign in.", 1)
-		}
-
-		if user == nil {
+		if err != nil || user == nil {
 			cli.Exit("You don't seem to be signed in. Try running `openbin login` to sign in.", 1)
 		}
 

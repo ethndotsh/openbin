@@ -3,7 +3,7 @@
 export function getOS() {
   if (typeof window === "undefined") return "linux";
   const userAgent = window.navigator.userAgent.toLowerCase();
-  const macosPlatforms = /(macintosh|macintel|macppc|mac68k|macos)/i;
+  const macosPlatforms = /(macintosh|macintel|macos)/i;
   const windowsPlatforms = /(win32|win64|windows|wince)/i;
   let os = null;
 

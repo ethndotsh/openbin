@@ -90,7 +90,7 @@ export function PublishForm({
       ...defaultValues,
     },
   });
-  const { mutate, data, isLoading, error } = useZact(publish);
+  const { mutate, isLoading, error } = useZact(publish);
 
   async function onSubmit(values: z.infer<typeof publishSchema>) {
     if ((globalThis as any).umami) {
@@ -109,6 +109,7 @@ export function PublishForm({
 
     if (
       pasteValue &&
+      // TODO: Pretty sure opposite operator would be better here
       !(Buffer.byteLength(pasteValue, "utf8") / Math.pow(1024, 2) > 1)
     ) {
       mutate({

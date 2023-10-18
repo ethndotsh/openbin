@@ -3,7 +3,7 @@
 
 $ErrorActionPreference = "Stop"
 
-$BinDir = "${Home}\.openbin\bin"
+$BinDir = "${Home}\.local\bin"
 
 $DownloadUrl = "https://github.com/ethndotsh/openbin/releases/latest/download/openbin-windows-amd64.exe"
 

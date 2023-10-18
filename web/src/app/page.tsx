@@ -17,7 +17,7 @@ export default async function Home() {
 
   let profile: Profile | null = null;
 
-  if (session && session.user) {
+  if (session?.user) {
     profile = await getProfile(session.user.id);
   }
 

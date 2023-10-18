@@ -1,7 +1,7 @@
 "use client";
 
 import { useMonaco } from "@monaco-editor/react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { LoadingSpinner } from "../loading-spinner";
 
 import dynamic from "next/dynamic";
@@ -10,7 +10,6 @@ import theme from "@/assets/gh-light.json";
 
 import type monacoTypes from "monaco-editor";
 import { Database } from "types/supabase";
-import { Navbar } from "../navbar";
 import { Session } from "@supabase/supabase-js";
 
 const Monaco = dynamic(() => import("@monaco-editor/react"), { ssr: false });
@@ -74,8 +73,8 @@ export function PasteViewer({
             enabled: false,
           },
         }}
-        language={paste.language || "plaintext"}
-        defaultLanguage={paste.language || "plaintext"}
+        language={paste.language ?? "plaintext"}
+        defaultLanguage={paste.language ?? "plaintext"}
         defaultValue={file}
       />
     </div>

@@ -67,7 +67,7 @@ export const publish = zact(
       author: userData.user.id,
       title: input.title,
       description:
-        input.description && input.description.length
+        input.description?.length
           ? input.description
           : undefined,
       language: input.language,
@@ -102,7 +102,7 @@ export const toggleDraft = zact(
   const { data: pasteData, error: pasteError } = await supabase
     .from("pastes")
     .update({
-      draft: input.action === "publish" ? false : true,
+      draft: input.action !== "publish",
     })
     .eq("id", input.id)
     .eq("author", userData.user.id)
