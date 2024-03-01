@@ -32,8 +32,8 @@ type UploadOptions struct {
 
 var UploadCommand = cli.Command{
 	Name:      "upload",
-	Aliases:   []string{"u"},
-	Usage:     "Upload a file to OpenBin.",
+	Aliases:   []string{"u", "up"},
+	Usage:     "Upload a file to Openbin.",
 	ArgsUsage: "[FILE]",
 	Flags: []cli.Flag{
 		&cli.StringFlag{
@@ -91,6 +91,16 @@ var UploadCommand = cli.Command{
 		},
 	},
 	Action: func(cCtx *cli.Context) error {
+		user, err := supabase.Auth.User(ctx, settings.AccessToken)
+
+		if err != nil {
+			cli.Exit("You don't seem to be signed in. Try running `openbin login` to sign in.", 1)
+		}
+
+		if user == nil {
+			cli.Exit("You don't seem to be signed in. Try running `openbin login` to sign in.", 1)
+		}
+
 		args := UploadOptions{
 			File:        cCtx.Args().First(),
 			Editor:      cCtx.String("editor"),
@@ -102,6 +112,13 @@ var UploadCommand = cli.Command{
 			Copy:        cCtx.Bool("copy"),
 			Open:        cCtx.Bool("open"),
 			Quiet:       cCtx.Bool("quiet"),
+		}
+
+		if args.File != "" {
+			// Check if the file exists
+			if _, err := os.Stat(args.File); os.IsNotExist(err) {
+				return cli.Exit("The file you specified does not exist.", 1)
+			}
 		}
 
 		if args.Language == "" {
@@ -226,7 +243,11 @@ func UploadFile(path string, opts UploadOptions) {
 	user, err := supabase.Auth.User(ctx, settings.AccessToken)
 
 	if err != nil {
-		cli.Exit("Could not get the user. Try signing in with `openbin login`.", 1)
+		cli.Exit("You don't seem to be signed in. Try running `openbin login` to sign in.", 1)
+	}
+
+	if user == nil {
+		cli.Exit("You don't seem to be signed in. Try running `openbin login` to sign in.", 1)
 	}
 
 	supabase.DB.AddHeader("Authorization", fmt.Sprintf("Bearer %s", settings.AccessToken))

@@ -14,10 +14,10 @@ export default async function MeLayout({
   params: { id: string };
 }) {
   const session = await getSession();
-  const profile = await getProfile(params.id);
+  const userProfile = await getProfile(session?.user.id);
   return (
     <>
-      <Navbar session={session} profile={profile} />
+      <Navbar session={session} profile={userProfile} />
       <div className="border-b" />
       {children}
     </>

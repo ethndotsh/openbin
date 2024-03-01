@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import theme from "@/assets/gh-light.json";
 import type monacoTypes from "monaco-editor";
 import { useRouter, useSearchParams } from "next/navigation";
-
+import { LoadingSpinner } from "../loading-spinner";
 import { Session } from "@supabase/supabase-js";
 import { EditorNavbar } from "./navbar";
 import { Paste, Profile } from "types/types";
@@ -42,6 +42,10 @@ export function MonacoEditor({
         theme as monacoTypes.editor.IStandaloneThemeData,
       );
       monaco.editor.setTheme("gh-light");
+      monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+        noSemanticValidation: true,
+        noSyntaxValidation: true,
+      });
 
       if (localStorage && searchParams.get("publish")) {
         const previousData = localStorage.getItem("editor-data");
@@ -76,6 +80,11 @@ export function MonacoEditor({
         theme="gh-light"
         value={value}
         onChange={setValue}
+        loading={
+          <div className="flex h-[90vh] w-screen items-center justify-center">
+            <LoadingSpinner />
+          </div>
+        }
         options={{
           padding: {
             top: 16,

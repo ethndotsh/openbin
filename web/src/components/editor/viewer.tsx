@@ -26,6 +26,20 @@ export function PasteViewer({
 }) {
   const monaco = useMonaco();
 
+  useEffect(() => {
+    if (monaco) {
+      monaco.editor.defineTheme(
+        "gh-light",
+        theme as monacoTypes.editor.IStandaloneThemeData,
+      );
+      monaco.editor.setTheme("gh-light");
+      monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+        noSemanticValidation: true,
+        noSyntaxValidation: true,
+      });
+    }
+  }, [monaco]);
+
   return (
     <div>
       <Monaco
@@ -61,7 +75,7 @@ export function PasteViewer({
           },
         }}
         language={paste.language || "plaintext"}
-        defaultLanguage="plaintext"
+        defaultLanguage={paste.language || "plaintext"}
         defaultValue={file}
       />
     </div>

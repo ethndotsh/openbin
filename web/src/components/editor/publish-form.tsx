@@ -13,7 +13,7 @@ import { ChevronsUpDown, Check, CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { Calendar } from "../ui/calendar";
 import { useZact } from "zact/client";
-import { publish } from "./publish";
+import { publish } from "./actions";
 import {
   Form,
   FormControl,
@@ -35,6 +35,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { toast } from "sonner";
 
 const publishSchema = z.object({
   title: z
@@ -91,15 +92,36 @@ export function PublishForm({
   });
   const { mutate, data, isLoading, error } = useZact(publish);
 
-  function onSubmit(values: z.infer<typeof publishSchema>) {
-    mutate({
-      ...values,
-      value: pasteValue,
-    }).then(() => {
-      if (localStorage) {
-        localStorage.removeItem("editor-data");
+  async function onSubmit(values: z.infer<typeof publishSchema>) {
+    if ((globalThis as any).umami) {
+      await (globalThis as any).umami.track("paste-created", {
+        language: values.language,
+        draft: values.draft,
+        remix: !!values.remixOf,
+      });
+
+      if (values.remixOf) {
+        await (globalThis as any).umami.track("paste-remix", {
+          language: values.language,
+        });
       }
-    });
+    }
+
+    if (
+      pasteValue &&
+      !(Buffer.byteLength(pasteValue, "utf8") / Math.pow(1024, 2) > 1)
+    ) {
+      mutate({
+        ...values,
+        value: pasteValue,
+      }).then(() => {
+        if (localStorage) {
+          localStorage.removeItem("editor-data");
+        }
+      });
+    } else {
+      toast.error("Paste is too large to publish");
+    }
   }
 
   return (
@@ -168,6 +190,7 @@ export function PublishForm({
                           {languages.map((language) => (
                             <CommandItem
                               key={language.value}
+                              value={language.value}
                               onSelect={(currentValue) => {
                                 field.onChange(currentValue);
                                 setLanguageSelectOpen(false);

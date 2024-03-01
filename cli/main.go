@@ -13,7 +13,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-const VERSION = "1.0.5"
+const VERSION = "1.0.8"
 
 type GitHubResponse struct {
 	TagName string `json:"tag_name"`
@@ -24,7 +24,7 @@ func Run() {
 		Name:                 "openbin",
 		HelpName:             "openbin",
 		EnableBashCompletion: true,
-		Description:          "A CLI tool for OpenBin, a free and open-source pastebin alternative.",
+		Description:          "A CLI tool for Openbin, a free and open-source pastebin alternative built primarily for command-line warriors.",
 		Flags: []cli.Flag{
 			&cli.BoolFlag{
 				Name: "version",

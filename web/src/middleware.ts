@@ -16,12 +16,15 @@ export async function middleware(req: NextRequest) {
   // if user is signed in and the current path is / redirect the user to /account
 
   // if user is not signed in and the current path is not / redirect the user to /
-  if (!user && req.nextUrl.pathname.startsWith("/auth/delete"))
-    if (validate(req.nextUrl.pathname.slice(1))) {
-      return NextResponse.redirect(
-        new URL(`/pastes/${req.nextUrl.pathname.slice(1)}`, req.url),
-      );
-    }
+  if (!user && req.nextUrl.pathname.startsWith("/auth/delete")) {
+    return NextResponse.redirect(new URL(`/login`, req.url));
+  }
+
+  if (validate(req.nextUrl.pathname.slice(1))) {
+    return NextResponse.redirect(
+      new URL(`/pastes/${req.nextUrl.pathname.slice(1)}`, req.url),
+    );
+  }
 
   return res;
 }

@@ -12,18 +12,18 @@ import (
 var LoginCommand = cli.Command{
 	Name:    "login",
 	Aliases: []string{"auth", "signin"},
-	Usage:   "Login to your OpenBin account.",
+	Usage:   "Login to your Openbin account.",
 	Flags: []cli.Flag{
 		&cli.StringFlag{
 			Name:     "email",
 			Aliases:  []string{"e"},
-			Usage:    "Your OpenBin account email.",
+			Usage:    "Your Openbin account email.",
 			Required: false,
 		},
 		&cli.StringFlag{
 			Name:        "provider",
 			Aliases:     []string{"p"},
-			Usage:       "Your OpenBin account provider.",
+			Usage:       "Your Openbin account provider.",
 			Required:    false,
 			DefaultText: "github",
 		},
@@ -78,8 +78,8 @@ var LoginCommand = cli.Command{
 		http.HandleFunc("/auth-callback", func(w http.ResponseWriter, r *http.Request) {
 			// get the code
 			code := r.URL.Query().Get("code")
-			fmt.Printf("Code: %s\n", code)
-			fmt.Printf("Code verifier: %s\n", codeVerifier)
+			// fmt.Printf("Code: %s\n", code)
+			// fmt.Printf("Code verifier: %s\n", codeVerifier)
 			// get the token
 			token, err := supabase.Auth.ExchangeCode(ctx, sb.ExchangeCodeOpts{
 				AuthCode:     code,
@@ -126,7 +126,7 @@ var LoginCommand = cli.Command{
 var LogoutCommand = cli.Command{
 	Name:    "logout",
 	Aliases: []string{"signout"},
-	Usage:   "Logout from your OpenBin account.",
+	Usage:   "Logout from your Openbin account.",
 	Action: func(cCtx *cli.Context) error {
 		settings.SetAccessToken("")
 		settings.SetRefreshToken("")
