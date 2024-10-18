@@ -12,6 +12,7 @@ import { Metadata } from "next";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { Database } from "types/supabase";
+
 import { Disc3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PublishUnpublishButton } from "@/components/editor/toggle-publish";
@@ -60,6 +61,7 @@ export default async function Paste({ params }: { params: { id: string } }) {
   const session = await getSession();
 
   if (!validate(id)) {
+
     notFound();
   }
 
