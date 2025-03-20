@@ -35,8 +35,8 @@ export function LoginComponent({
       provider,
       options: {
         redirectTo: redirectTo
-          ? `${location.origin}/auth/callback/${encodeURIComponent(redirectTo)}`
-          : `${location.origin}/auth/callback`,
+          ? `https://openbin.ethn.sh/auth/callback/${encodeURIComponent(redirectTo)}`
+          : `https://openbin.ethn.sh/auth/callback`,
       },
     });
 
@@ -45,26 +45,6 @@ export function LoginComponent({
     }
   }
 
-  async function handleEmailLogin() {
-    if (beforeLogin) beforeLogin();
-    setLoading(true);
-    const { error } = await supabase.auth
-      .signInWithOtp({
-        email,
-        options: {
-          emailRedirectTo: redirectTo
-            ? `${location.origin}/auth/callback/${encodeURIComponent(
-                redirectTo,
-              )}`
-            : `${location.origin}/auth/callback`,
-        },
-      })
-      .then((res) => {
-        setLoading(false);
-        setCheckEmail(true);
-        return res;
-      });
-  }
 
   return (
     <div className="mx-auto w-full space-y-2">
