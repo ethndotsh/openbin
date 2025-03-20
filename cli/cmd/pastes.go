@@ -78,7 +78,7 @@ var PastesCommand = cli.Command{
 				title = "Untitled Paste"
 			}
 
-			fmt.Printf("\n- %s: %s [%s]\n", title, fmt.Sprintf("https://openbin.dev/paste/%s", paste.ID), visibility)
+			fmt.Printf("\n- %s: %s [%s]\n", title, fmt.Sprintf("https://openbin.ethn.sh/paste/%s", paste.ID), visibility)
 		}
 
 		return nil

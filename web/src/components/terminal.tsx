@@ -17,8 +17,8 @@ function getLines(os: string) {
     {
       text: `${
         os === "windows"
-          ? "irm https://openbin.dev/install.ps1 | iex"
-          : "curl -fsSL https://openbin.dev/install.sh | sh"
+          ? "irm https://openbin.ethn.sh/install.ps1 | iex"
+          : "curl -fsSL https://openbin.ethn.sh/install.sh | sh"
       }`,
       cmd: true,
       delay: 1000,
@@ -52,7 +52,7 @@ function getLines(os: string) {
       cmd: false,
     },
     {
-      text: `File uploaded successfully, accessible at https://openbin.dev/pastes/xxxxxxxx`,
+      text: `File uploaded successfully, accessible at https://openbin.ethn.sh/pastes/xxxxxxxx`,
       cmd: false,
     },
   ] as Line[];

@@ -268,12 +268,12 @@ func UploadFile(path string, opts UploadOptions) {
 	}
 
 	if !opts.Quiet {
-		fmt.Printf("https://openbin.dev/pastes/%s\n", id)
+		fmt.Printf("https://openbin.ethn.sh/pastes/%s\n", id)
 	}
 
 	if opts.Copy {
 		// copy the URL to the clipboard
-		err = clipboard.WriteAll(fmt.Sprintf("https://openbin.dev/pastes/%s", id))
+		err = clipboard.WriteAll(fmt.Sprintf("https://openbin.ethn.sh/pastes/%s", id))
 
 		if err != nil {
 			fmt.Println(err)
@@ -283,7 +283,7 @@ func UploadFile(path string, opts UploadOptions) {
 
 	if opts.Open {
 		// open the URL in the browser
-		err = browser.OpenURL(fmt.Sprintf("https://openbin.dev/pastes/%s", id))
+		err = browser.OpenURL(fmt.Sprintf("https://openbin.ethn.sh/pastes/%s", id))
 
 		if err != nil {
 			fmt.Println(err)

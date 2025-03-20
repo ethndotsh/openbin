@@ -12,12 +12,12 @@ Without guessing, this is the most important step in using CLI. You can install 
 
 ### Windows (Powershell)
 ```powershell
-irm https://openbin.dev/install.ps1 | iex
+irm https://openbin.ethn.sh/install.ps1 | iex
 ```
 
 ### Linux and macOS
 ```shell
-curl -fsSL https://openbin.dev/install.sh | sh
+curl -fsSL https://openbin.ethn.sh/install.sh | sh
 ```
 
 To make sure that Openbin is installed, enter `openbin --version` in your terminal. If it gives you the version, this means that Openbin has been successfully installed and you're ready to start using it! 🎉

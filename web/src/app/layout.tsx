@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: "Openbin",
     description:
       "Openbin is a free and open source pastebin alternative built with command-line users and developers in mind.",
-    url: "https://openbin.dev/",
+    url: "https://openbin.ethn.sh/",
     images: [
       {
         url: "/assets/image.png",

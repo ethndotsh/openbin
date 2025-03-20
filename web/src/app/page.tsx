@@ -53,7 +53,7 @@ export default async function Home() {
             <div className="my-4 flex items-center space-x-2">
               <SupabaseLogo className="h-4" />
               <span className="text-sm font-medium text-neutral-600">
-                Supabase LW8 Hackathon Submission
+                Supabase LW8 Hackathon Winner
               </span>
             </div>
             <h1 className="mt-1 text-3xl font-bold lg:text-4xl">
