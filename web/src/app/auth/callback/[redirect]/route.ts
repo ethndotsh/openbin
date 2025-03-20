@@ -1,3 +1,4 @@
+import { BASE_URL } from "@/utils/config";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
@@ -17,9 +18,9 @@ export async function GET(
 
   if (redirect) {
     return NextResponse.redirect(
-      new URL(decodeURIComponent(redirect), req.url),
+      new URL(decodeURIComponent(redirect), BASE_URL),
     );
   }
 
-  return NextResponse.redirect(new URL(`/`, req.url));
+  return NextResponse.redirect(new URL(`/`, BASE_URL));
 }

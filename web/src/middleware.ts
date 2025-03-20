@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import { validate } from "uuid";
 
 import type { NextRequest } from "next/server";
+import { BASE_URL } from "./utils/config";
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
@@ -17,12 +18,12 @@ export async function middleware(req: NextRequest) {
 
   // if user is not signed in and the current path is not / redirect the user to /
   if (!user && req.nextUrl.pathname.startsWith("/auth/delete")) {
-    return NextResponse.redirect(new URL(`/login`, req.url));
+    return NextResponse.redirect(new URL(`/login`, BASE_URL));
   }
 
   if (validate(req.nextUrl.pathname.slice(1))) {
     return NextResponse.redirect(
-      new URL(`/pastes/${req.nextUrl.pathname.slice(1)}`, req.url),
+      new URL(`/pastes/${req.nextUrl.pathname.slice(1)}`, BASE_URL),
     );
   }
 

@@ -1,3 +1,4 @@
+import { BASE_URL } from "@/utils/config";
 import {
   createRouteHandlerClient,
   createServerActionClient,
@@ -48,11 +49,11 @@ export async function POST(req: NextRequest) {
       return;
     }
 
-    return NextResponse.redirect(new URL("/", req.url), {
+    return NextResponse.redirect(new URL("/", BASE_URL), {
       status: 302,
     });
   } else {
-    return NextResponse.redirect(new URL("/", req.url), {
+    return NextResponse.redirect(new URL("/", BASE_URL), {
       status: 302,
     });
   }

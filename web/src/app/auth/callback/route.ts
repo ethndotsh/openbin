@@ -1,3 +1,4 @@
+import { BASE_URL } from "@/utils/config";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
@@ -11,7 +12,5 @@ export async function GET(req: NextRequest) {
     await supabase.auth.exchangeCodeForSession(code);
   }
 
-  return NextResponse.json({ url: req.url });
-
-  return NextResponse.redirect(new URL(`/`, req.url));
+  return NextResponse.redirect(new URL(`/`, BASE_URL));
 }
