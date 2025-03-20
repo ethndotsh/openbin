@@ -5,8 +5,8 @@ import (
 	"github.com/jackmerrill/supabase-go"
 )
 
-const SUPABASE_URL = "https://okrxduhzkryvltkiqqzw.supabase.co"
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9rcnhkdWh6a3J5dmx0a2lxcXp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTA4NjMwOTYsImV4cCI6MjAwNjQzOTA5Nn0.kWwjFrfN_gD0p7iSnQugIlTQGr3mviRiXZWw6jO64NI"
+const SUPABASE_URL = "https://yjcmvygieeqeptqmiykg.supabase.co"
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlqY212eWdpZWVxZXB0cW1peWtnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI0NDE0NjgsImV4cCI6MjA1ODAxNzQ2OH0.9vyMbaYpYKrXC9WlTrEuFdyVglhaNxoUV4t9d9mfgJA"
 
 func New() *supabase.Client {
 	supabaseClient := supabase.CreateClient(SUPABASE_URL, SUPABASE_KEY)
